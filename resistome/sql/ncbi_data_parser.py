@@ -412,16 +412,11 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
         sql = prepare_tuple_style_sql_query('interactions', strain, SPECIES_SCHEMA['interactions'])
         psycopg2.extras.execute_values(cur, sql, argslist=regulatory_interactions, page_size=2000)
 
-    if len(ecocyc_to_accession.keys()) > 0:
-        # I think I originally submitted the sequences from Biocyc's fasta distribution.
-        # So we need to convert to the Ecogene/Ecocyc ID. It would be better to just redo the sequences or convert
-        # them all at once. Perhaps a better method exists for protein stabiility prediction (SNAP2/INPS haven't
-        # been updated in a while. )
-        build_mutational_prediction_table(cur=cur, strain_to_process=strain,
-                                          unique_id_to_accession_dict=ecocyc_to_accession,
-                                          accession_to_gene_id=accession_to_gene_id,
-                                          methods={'inps', 'snap2'},
-                                          snap2_genes_to_process=SNAP2_GENES)
+    build_mutational_prediction_table(cur=cur, strain_to_process=strain,
+                                      unique_id_to_accession_dict=ecocyc_to_accession,
+                                      accession_to_gene_id=accession_to_gene_id,
+                                      methods={'inps', 'snap2'},
+                                      snap2_genes_to_process=SNAP2_GENES)
 
     go_terms = get_go_terms([(x[0][0], x[0][1]) for x in gene_features])
 
