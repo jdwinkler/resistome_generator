@@ -1,0 +1,2 @@
+Metabolomic data for KO strains generated in: Fuhrer T, Zampieri M, Sévin DC, Sauer U, Zamboni N. Genomewide landscape of gene-metabolome associations in Escherichia coli. Mol Syst Biol. 2017 Jan 16;13(1):907. 
+doi: 10.15252/msb.20167150. PMID: 28093455; PMCID: PMC5293155.

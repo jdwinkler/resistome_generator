@@ -1,0 +1,1 @@
+gene to GO tags (although I think this is extracted from Biocyc now).

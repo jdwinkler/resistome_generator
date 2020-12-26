@@ -1,0 +1,213 @@
+Air	aerobic	Aerobic
+Air	microaerobic	Microaerobic
+Air	anaerobic	Anaerobic
+Air	two-stage	Aerobic-Anaerobic
+Culture	bflask	Baffled flask
+Culture	nbflask	Non-baffled flask
+Culture	testtube	Test tube
+Culture	bottle	Bottle
+Culture	bioreactor	Fed-batch bioreactor
+Culture	chemostat	Chemostat/continuous
+Culture	agar	Agar Plates
+Culture	well384	384-well plates
+Culture	well96	96-well plates
+Culture	well48	48-well plates
+Culture	well24	24-well plates
+Culture	biofilm	Growth in biofilm type reactor
+Culture	invivo	Growth in living organism
+DOE	none	Ad hoc (intuitive) design proposal
+DOE	modeled	Model/computational guided design proposal 
+DOE	statistical	Formal statistical design of experiments sampling
+DOE	completionist	Exhaustive (combinatorial) model proposal/testing
+DOE	parallel	Parallelized strain design/testing
+DOE	serial	Serial (sequential) strain design/testing
+DOE	random	Evolution/mutagenically generated designs
+Effect	global	C2: Global metabolic/regulatory effects
+Effect	cofactor_switch	E1: Changes cofactor
+Effect	substrate_switch	E2: Changes substrate
+Effect	fbr	E3: Attenuates feedback resistance
+Effect	raisedactivity	E4: Raises enzyme activity
+Effect	loweredactivity	E5: Lowers enzyme activity
+Effect	feedstock_use	E6: Enables use of non-native feedstock
+Effect	new_rxn	F8: New reaction in metabolic network
+Effect	linkage	F9: New link between met. modules
+Effect	relaxed_ccr	E7: Removes catabolite repression
+Effect	increased_flux	F1: Increased flux through pathway
+Effect	decreased_flux	F2: Decreased flux through pathway
+Effect	decreased_byproduct_form	F6: Reduces byproduct formation
+Effect	decreased_prod_deg	F7: Reduces product degradation
+Effect	local_con_increases	F3: Increases local [metabolite]
+Effect	flux_channeling	F4: Channels flux between enzymes
+Effect	redox_balance	F5: Improves redox balance
+Effect	improved_translation	G1: Increases translation
+Effect	improved_transcription	G2: Increases transcription
+Effect	added_regulation	G3: Adds new regulatory links
+Effect	complement	G4: Complements defective native gene
+Effect	modulated	G5: Modulates gene expression
+Effect	feedbackcontrol	G6: Feedback control of expression
+Effect	importer	R2: Transports substrate into the cell
+Effect	transporter	R1: Transports substrate/product out of cell
+Effect	enzyme_inhibitor_res	T2: Enzyme inhibitor resistance
+Effect	toxin_export	T3: Exports inhibitor from cell
+Effect	membrane_porosity	T4: Better exclusion from cell due to membrane changes
+Effect	active_site	T5: Enzyme or protein active site mutation
+Effect	polypeptide_mutation	T6: Structural mutation to enzyme or protein
+Effect	regulatory disruption	T7: Regulatory mutation
+Effect	cell_size	T8: Altered cell size (increase/decrease)
+Effect	metabolic_disruption	T9: Metabolic subsystem disruption
+Effect	unknown	U1: Precise effect unknown
+Effect	improved_growth	T1: Improves cellular growth
+Effect	del_negative_evidence	T10: Deletion increases sensitivity
+Effect	toxic_breakdown	T11. Metabolizes inhibitor
+Effect	protein_folding	T12. Improves protein folding	
+gene	GeneName	Gene Name
+gene	GeneNickname	Gene Nickname
+gene	GeneMutation	Mutation Type
+gene	GeneEffect	Mutation Effects
+gene	EffectConfidence	Confidence
+gene	GeneSource	Source Organism
+gene	GeneOriginal	Original to this work
+gene	EcNumber	EC Number
+gene	gComments	Comments
+Methods	persisters	Induced or mutationally-driven persistence
+Methods	copy number amplification	Gene Amplification
+Methods	antimetabolite	Antimetabolite selection
+Methods	combinatorial_or_library	Combinatorial-scale or library
+Methods	compartment	Compartmentalizing proteins
+Methods	computational	Computational tolerance design (FBA, EM, ensemble, etc)
+Methods	evolution	Adaptive evolution/selections
+Methods	human	Human designed or inferred
+Methods	oxygenation	Aerobic/Anaerobic growth
+Methods	regulatory engineering	Gene expression engineering
+Methods	metagenomics	Metagenomic screening
+Methods	sigma factor manipulation	Sigma factor engineering
+Methods	protein engineering	Protein engineering
+Methods	proteomics	Proteomic profiling
+Methods	random mutagenesis	Random mutagenesis
+Methods	facs screening	Rapid FACS screening
+Methods	cofactor switching	Cofactor switching
+Methods	transcriptomics	Transcriptomic profiling
+Methods	mediumoptimization	Medium optimization
+Methods	metabolomics	Metabolic profiling
+Methods	liquidliquid	Two-phase (LL) process
+Methods	trna manipulation	tRNA Manipulation
+Methods	synthetic pathway	Synthetic pathway design
+Methods	central metabolism	Central metabolism re-engineering
+Methods	kinetics	Kinetic strain design
+Methods	thermodynamics	Thermodynamic strain design
+Methods	mutation_accumulation	Mutagenesis for mutation load
+Mutation	compartmentalization	Targeted to organelle
+Mutation	aa_snps	Amino acid change(s)
+Mutation	amplified	Amplified copy number
+Mutation	antisense	Antisense knockdown
+Mutation	scaffold_binder	Binds to protein scaffold domains
+Mutation	truncated	Truncated coding sequence
+Mutation	codonoptimized	Codon optimization
+Mutation	con	Constitutive expression
+Mutation	large_amplification	Large Amplification
+Mutation	large_deletion	Large Deletion
+Mutation	large_inversion	Large Inversion
+Mutation	del	Deletion
+Mutation	frameshift	Frameshift mutation
+Mutation	protein_fusion	Protein fusion
+Mutation	duplication	Gene duplication
+Mutation	indel	Indel
+Mutation	intergenic	Intergenic mutation
+Mutation	is_insertion	IS insertion
+Mutation	mutated	Mutated allele
+Mutation	nuc_snps	Nucleotide SNP(s)
+Mutation	oe	Overexpression
+Mutation	plasmid	Plasmid expression
+Mutation	promoter_switch	Promoter swap
+Mutation	rbs_tuned	RBS sequence tuning
+Mutation	less_nadh_inhibition	Reduced NADH inhibition
+Mutation	regulated	Regulated by X genes
+Mutation	rep	Repression
+Mutation	scaffold_bindee	Scaffold for protein assembly
+Mutation	mrna_secondarystructure	Secondary structure altered
+Mutation	sensor	Sensor
+Mutation	integrated	Chromosomal integration
+Mutation	terminated	Terminated
+Original	yes	Yes
+Original	no	No
+paper	Title	Title
+paper	DOI	DOI
+paper	Year	Year Published
+paper	ResearchGroup	Corresponding Author
+paper	Journal	Journal
+paper	project_score	Project Difficulty
+paper	score_reason	Difficulty explanation
+paper	project_doe	Project Management
+paper	Tags	Tags
+paper	pComments	Paper Comments
+paper	total	Total Mutants Created
+paper	NumberofMutants	Mutants to Enter
+Reason	number_of_mods	Number of modifications
+Reason	type_of_mods	Type of modifications
+Reason	unknown_mechanism	Resistance mech unknown
+Reason	system_interactions	System-level interactions
+Reason	construction	Capabilities of engineering tools
+Reason	resources	Required strains, reagents, or equipment
+Reason	expertise	Researcher expertise
+Reason	scale	Number of designs to test/screen (scale)
+Reason	organism	Tractability of host organism
+Reason	other_engineering	Z1. Other engineering aspect
+Reason	other_design	Z2. Other design aspect
+Reason	other_general	Z3. Other issue
+Tags	radiation	Ionizing radiation
+Tags	antichemo	Antibiotics or chemotherapy
+Tags	aa_antimetabolite	Amino acid antimetabolites
+Tags	general_antimetabolite	Other antimetabolies
+Tags	solvents_biofuels	Solvents or biofuels
+Tags	high_temperature	High temperature
+Tags	low_temperature	Low temperature
+Tags	osmotic_stress	Osmotic stress
+Tags	low_ph	Low pH (acidic)
+Tags	high_ph	High pH (alkaline)
+Tags	organic_acid (neutral)	Neutral organic acid
+Tags	high_gravity	High-g-force
+Tags	furans	Furan (furfural/HMF)
+Tags	nutrient_limitation	Nutrient Limitation (C/P/S/N)
+Tags	other	Z. Other inhibitor
+Tags	oxidative	Oxidative Stress
+Tags	general_growth	Growth
+Tags	metal_ions	Metal Ions (Zn,Cd,etc)
+Tags	detergents	Detergents (SDS)
+Tags	mutagens	Mutagenic compounds
+Tags	quaternary_ammonia	Quaternary Ammonia
+mutant	Species	Species
+mutant	Subspecies	Strain
+mutant	CultureSystem	Culture System
+mutant	Oxygen	Oxygenation
+mutant	Medium	Medium
+mutant	CarbonSource	Carbon Source
+mutant	Supplements	Supplements
+mutant	cvolume	Culture volume (ml)
+mutant	fvolume	Vessel volume (ml)
+mutant	pH	Culture pH
+mutant	Temperature	Temperature (C)
+mutant	Rotation	Rotation (rpm)
+mutant	Name	Mutant Name
+mutant	Method	Mutant Method
+mutant	TolerancePhenotype	Tolerance Phenotype
+mutant	AntagonisticPhenotype	Antagonistic Pleiotropy
+mutant	TargetMolecule	Target Molecule
+mutant	Objective	Objective
+mutant	Pathway	Pathway
+mutant	FoldImprovement	Fold Improvement
+mutant	initial_fitness	Initial Growth Rate
+mutant	final_fitness	Final Growth Rate
+mutant	Fitness unit	Fitness Unit
+mutant	mComments	Mutant Comments
+mutant	NumberofMutations	Number of Mutations
+mutant	ResistanceLevel	Resistance Level
+mutant	ResistanceUnits	Resistance Units
+GEChange	overexpressed	Overexpressed
+GEChange	underexpressed	Underexpressed
+GrowthPhase	lag	Lag phase
+GrowthPhase	exponential	Exponential phase
+GrowthPhase	stationary	Stationary phase
+GrowthPhase	death	Death phase
+GEMethod	rnaseq	RNA sequencing
+GEMethod	microarray	Microarray
+GEMethod	qpcr	qPCR

@@ -1,0 +1,64 @@
+Category	Internal Name	Displayed Name	Type	Required?	Can select multiple?	Key for dropdown entries	List?	Delimiter	Default Value
+gene	GeneName	Gene Name	text	1	0	None	0	None	Immortality Gene
+gene	GeneNickname	Alternative Names	text	0	0	None	1	,	Soma,Immortality Vaccine
+gene	GeneMutation	Mutation Type	text	1	1	Mutation	1	,	oe,plasmid
+gene	GeneEffect	Mutation Effects	text	1	1	Effect	1	,	cellexpander,new_rxn
+gene	EffectConfidence	Confidence	integer	1	0	Confidence	0	None	High
+gene	GeneSource	Source Organism	text	1	0	None	0	None	Superman
+gene	GeneOriginal	Original to this work	text	1	0	Original	0	None	yes
+gene	EcNumber	EC Number	text	0	0	None	0	None	1.1.1.1
+gene	gComments	Comments	text	0	0	None	0	None	Possibly fake
+mutant	Species	Species	text	1	0	None	0	None	Homo sapiens
+mutant	Subspecies	Strain	text	1	0	None	0	None	Chicken
+mutant	CultureSystem	Culture System	text	1	0	Culture	0	None	batch_ft
+mutant	Oxygen	Oxygenation	text	0	0	Air	0	None	aerobic
+mutant	Medium	Medium	text	0	0	None	0	None	Minimal
+mutant	CarbonSource	Carbon Source	text	1	0	None	1	,	Glucose
+mutant	Supplements	Supplements	text	0	0	None	1	,	Protein shakes
+mutant	cvolume	Culture volume (ml)	float	0	0	None	0	None	1000
+mutant	fvolume	Vessel volume (ml)	float	0	0	None	0	None	2000
+mutant	pH	Culture pH	float	0	0	None	0	None	7
+mutant	Temperature	Temperature (C)	float	0	0	None	0	None	45
+mutant	Rotation	Rotation (rpm)	float	0	0	None	0	None	360
+mutant	Name	Mutant Name	text	0	0	None	0	None	Destroyer of worlds
+mutant	Method	Mutant Method	text	1	1	Methods	1	,	antimetabolite
+mutant	TolerancePhenotype	Tolerance Phenotype	text	1	0	None	1	,	Everything
+mutant	AntagonisticPhenotype	Antagonistic Pleiotropy	text	0	0	None	1	,	Ice cream
+mutant	ResistanceLevel	Resistance Level	float	0	0	None	0	None	100
+mutant	ResistanceUnits	Resistance Units	text	0	0	None	0	None	mg/L
+mutant	TargetMolecule	Target Molecule	text	0	0	None	0	None	biomass
+mutant	FoldImprovement	Fold Improvement	float	0	0	None	0	None	10000
+mutant	initial_fitness	Initial Fitness Denom	float	0	0	None	0	None	0.01
+mutant	final_fitness	Final Fitness Numer	float	0	0	None	0	None	100
+mutant	Fitness unit	Fitness Unit	text	0	0	None	0	None	lives/hr
+mutant	mComments	Mutant Comments	text	0	0	None	0	None	Example
+mutant	NumberofGEChanges	Number of Gene Expression changes	integer	1	0	None	0	None	1
+mutant	NumberofMutations	Number of Mutations	integer	1	0	None	0	None	1
+paper	Title	Title	text	1	0	None	0	None	Hello World
+paper	DOI	DOI	text	1	0	None	0	None	Cows
+paper	Year	Year Published	integer	1	0	None	0	None	2014
+paper	ResearchGroup	Corresponding Author	text	1	0	None	0	None	Superman
+paper	Journal	Journal	text	1	0	None	0	None	Metabolic Engineering
+paper	project_score	Project Difficulty	integer	1	0	Score	0	None	6
+paper	score_reason	Difficulty explanation	text	1	1	Reason	1	,	number_of_mods
+paper	project_doe	Project Management	text	1	1	DOE	1	,	none
+paper	Tags	Tags	text	1	1	Tags	1	,	alcohols
+paper	pComments	Paper Comments	text	0	0	None	0	None	Cows make milk
+paper	total	Total Mutants Created	integer	1	0	None	0	None	1000
+paper	NumberofMutants	Mutants to Enter	integer	1	0	None	0	None	2
+paper	genome_reference	Genome reference	text	1	0	None	0	None	.3
+paper	GEQC	Quality of this gene expression study	float	0	0	GEQC	0	None	0
+hidden	SubmitterName	Submitter Name	text	1	0	None	0	None	
+hidden	SubmitterEmail	Submitter Email	text	1	0	None	0	None	
+gechange	GeneName	Gene Name	text	0	0	None	0	None	Gene McGeneface
+gechange	GEChange	Gene expression change (general)	text	0	0	GEChange	0	None	overexpressed
+gechange	Pvalue	P-value (adjusted)	float	0	0	None	0	None	0.05
+gechange	FoldChange	Fold change	float	0	0	None	0	None	2
+gechange	ExposureTime	Exposure Time (hrs)	float	0	0	None	0	None	1
+gechange	GrowthPhase	Growth phase	text	0	0	GrowthPhase	0	None	exponential
+gechange	GEMethod	Method of collecting GE data	text	0	0	GEMethods	0	None	microarray
+gechange	AccessionNo	Accession Number for data deposit	text	0	0	None	0	None	Unknown
+gechange	GeneSource	Source Organism	text	0	0	None	0	None	Escherichia coli
+gechange	StressAmount	Qty of stressor	float	0	0	None	0	None	1
+gechange	StressUnits	Units of stressor	text	0	0	None	0	None	%
+gechange	StatisticalTest	Test used to determine P-val	text	0	0	None	0	None	Unknown

@@ -1,0 +1,2 @@
+Files describing gene-regulator and protein-protein interations between E. coli ORFs. I cannot actually remember 
+how I generated these files unfortunately. They should be from RegulonDB circa 2016 and the EcoliNet paper.

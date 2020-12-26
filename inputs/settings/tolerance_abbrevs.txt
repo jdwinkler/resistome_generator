@@ -1,0 +1,22 @@
+phenotype	abbrevs
+aa_antimetabolite	AAAM
+antichemo	AAC
+detergents	DETR
+furans	FUR
+general_antimetabolite	ANTIM
+general_growth	GROW
+high_gravity	HIGHG
+high_ph	BASE
+high_temperature	HOT
+low_ph	ACID
+low_temperature	COLD
+metal_ions	METI
+mutagens	MUTA
+nutrient_limitation	NTL
+organic_acid (neutral)	OA
+osmotic_stress	OSM
+other	OTH
+oxidative	OXI
+quaternary_ammonia	NH4+
+radiation	RAD!
+solvents_biofuels	SB

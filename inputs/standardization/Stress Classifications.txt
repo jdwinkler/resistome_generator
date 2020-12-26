@@ -1,0 +1,687 @@
+Stressor	Tag	Stressor Class	Root
+BETA-AMINO-N-VALERATE	aa_antimetabolite	Amino acid	Amino Acid
+CYSTINE	aa_antimetabolite	Amino acid	Amino acid
+D-CYCLOSERINE	aa_antimetabolite	Amino acid	Amino acid
+D-SERINE	aa_antimetabolite	Amino acid	Amino Acid
+D-VALINE	aa_antimetabolite	Amino acid	Amino Acid
+L-CYSTEINE	aa_antimetabolite	Amino acid	Amino acid
+L-HOMOSERINE	aa_antimetabolite	Amino acid	Amino acid
+L-PROLINE	aa_antimetabolite	Amino acid	Amino acid
+L-SERINE	aa_antimetabolite	Amino acid	Amino acid
+L-THREONINE	aa_antimetabolite	Amino acid	Amino acid
+L-VALINE	aa_antimetabolite	Amino acid	Amino acid
+SERINE	aa_antimetabolite	Amino acid	Amino acid
+VALINE_SENSITIVE	aa_antimetabolite	Amino acid	Amino acid
+BETA-CHLORO-L-ALANINE	aa_antimetabolite	Amino acid analog	Metabolic analog
+4-AZA-DL-LEUCINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+ASPARTATE ACID HYDROXYMATE	aa_antimetabolite	Antimetabolite	Antimetabolite
+ASPARTIC ACID BETA-HYDROXAMATE	aa_antimetabolite	Antimetabolite	Antimetabolite
+D-L-ALANOSINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+GLYCYL-L-LEUCINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+HOMOSERINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+HOMOSERINE LACTONE	aa_antimetabolite	Antimetabolite	Antimetabolite
+L-ALPHA-AMINO-N-BUTYRIC ACID	aa_antimetabolite	Antimetabolite	Antimetabolite
+L-THREO-3-HYDROXYASPARTIC ACID	aa_antimetabolite	Antimetabolite	Antimetabolite
+NORVALINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+D_L-Methionine hydroxamate	aa_antimetabolite	Methionine analog	Antimetabolite
+L-Aspartic-B-hydroxamate	aa_antimetabolite	Serine racemase inhibitor	AA analog
+ACTINOMYCIN D	antichemo	actinomycines	antibiotic
+BULGECIN	other	Adjuvant	Adjuvant
+DEOXYCHOLATE	other	Adjuvant	Adjuvant
+DEOXYCHOLIC ACID_SENSITIVE	other	Adjuvant	Adjuvant
+NOV_SENSITIVE	antichemo	Aminocoumarin	antibiotic
+NOVOBIOCIN	antichemo	Aminocoumarin	antibiotic
+NOVOBIOCIN_SENSITIVE	antichemo	Aminocoumarin	antibiotic
+AMIKACIN	antichemo	Aminoglycoside	antibiotic
+AMIKACIN_SENSITIVE	antichemo	Aminoglycoside	antibiotic
+GENTAMICIN_SENSITIVE	antichemo	Aminoglycoside	antibiotic
+HYGROMYCIN B	antichemo	Aminoglycoside	antibiotic
+KANAMYCIN	antichemo	Aminoglycoside	antibiotic
+KASUGAMYCINE_SENSITIVE	antichemo	Aminoglycoside	antibiotic
+PAROMOMYCIN	antichemo	Aminoglycoside	antibiotic
+SISOMICIN	antichemo	Aminoglycoside	antibiotic
+SPECTINOMYCIN	antichemo	Aminoglycoside	antibiotic
+SPECTINOMYCIN_SENSITIVE	antichemo	Aminoglycoside	antibiotic
+STREPTOMYCIN	antichemo	Aminoglycoside	antibiotic
+STREPTONIGRIN_SENSITIVE	antichemo	Aminoglycoside	antibiotic
+TOBRAMYCIN	antichemo	Aminoglycoside	antibiotic
+KASUGAMYCIN	antichemo	Aminoglycoside	antibiotic
+PUR_SENSITIVE	antichemo	aminonucleoside	antibiotic
+PUROMYCIN	antichemo	aminonucleoside	antibiotic
+TRIMETHOPRIM	antichemo	Anisoles	antibiotic
+Rifamycin	antichemo	ansamycins	general antibiotics
+ADRIAMYCIN	antichemo	Anthracycline	antibiotic
+DOXORUBICIN	antichemo	Anthracycline	antibiotic
+ANTIBIOTIC_SENSITIVE	antichemo	Antibiotics	antibiotic
+ANTIBIOTICS_SENSITIVE	antichemo	Antibiotics	antibiotic
+GLUFOSFOMYCIN	antichemo	Antibiotics	antibiotic
+ISONIAZID	antichemo	Antibiotics	antibiotic
+NEOMYCIN	antichemo	Antibiotics	antibiotic
+NIGERICIN	antichemo	Antibiotics	antibiotic
+PMS	antichemo	Antibiotics	antibiotic
+PYOCYANIN	antichemo	Antibiotics	antibiotic
+THIOLACTOMYCIN	antichemo	Antibiotics	antibiotic
+5-CHLORO-7-IODO-8-HYDROXYQUINOLINE	antichemo	Antifungal agent	DNA replication inhibitors
+7-DICHLORO-8-HYDROXYQUINALDINE	antichemo	Antifungal agent	General antibiotic
+8-HYDROXYQUINOLINE	antichemo	Antifungal agent	General antibiotics
+OXYCARBOXIN	antichemo	Antifungal agent	Pesticide
+METHOTREXATE	antichemo	Antimetabolite	antibiotic
+A22	antichemo	Antimicrobial peptide	antibiotic
+ANTIMICROBIAL PEPTIDE_SENSITIVE	antichemo	Antimicrobial peptide	antibiotic
+BACITRACIN	antichemo	Antimicrobial peptide	antibiotic
+BACITRACIN_SENSITIVE	antichemo	Antimicrobial peptide	antibiotic
+CECROPIN A	antichemo	Antimicrobial peptide	antibiotic
+CECROPIN B	antichemo	Antimicrobial peptide	antibiotic
+COLICIN E2	antichemo	Antimicrobial peptide	antibiotic
+COLISTIN	antichemo	Antimicrobial peptide	antibiotic
+INDOLICIDIN	antichemo	Antimicrobial peptide	antibiotic
+LEUCINE CONTAINING PEPTIDES_SENSITIVE	antichemo	Antimicrobial peptide	antibiotic
+MICROCIN J25	antichemo	Antimicrobial peptide	antibiotic
+P2 PEPTIDE_SENSITIVE	antichemo	Antimicrobial peptide	antibiotic
+POLYMIXIN B	antichemo	Antimicrobial peptide	antibiotic
+POLYMIXIN B_SENSITIVE	antichemo	Antimicrobial peptide	antibiotic
+BENZOATE_SENSITIVE	antichemo	Antimicrobial preservative	Preservative
+TUNICAMYCIN	antichemo	Antinucleoside antibiotic	antibiotic
+CLOTRIMAZOLE_SENSITIVE	antichemo	Antifungal agent	antibiotic
+GUANAZOLE	antichemo	Antifungal agent	antibiotic
+METRONIDAZOLE_SENSITIVE	antichemo	Antifungal agent	antibiotic
+TINIDAZOLE	antichemo	Antifungal agent	antibiotic
+CELL WALL INHIBITORS	antichemo	Beta-lactam	antibiotic
+MEMBRANE ANTAGONISTS	antichemo	Beta-lactam	antibiotic
+Moxalactam	antichemo	Beta-lactam	antibiotic
+Nafcillin	antichemo	Beta-lactam	antibiotic
+AMOXICILLIN	antichemo	Beta-lactam	antibiotic
+AMP_SENSITIVE	antichemo	Beta-lactam	antibiotic
+AMPICILLIN	antichemo	Beta-lactam	antibiotic
+AMPICILLIN_SENSITIVE	antichemo	Beta-lactam	antibiotic
+BETA-LACTAM	antichemo	Beta-lactam	antibiotic
+BETA-LACTAM ANTIBIOTICS_SENSITIVE	antichemo	Beta-lactam	antibiotic
+CARBENICILLIN	antichemo	Beta-lactam	antibiotic
+IMIPENEM_SENSITIVE	antichemo	Beta-lactam	antibiotic
+MECILLINAM	antichemo	Beta-lactam	antibiotic
+OXACILLIN_SENSITIVE	antichemo	Beta-lactam	antibiotic
+PENICILLIN G	antichemo	Beta-lactam	antibiotic
+PENICILLIN G_SENSITIVE	antichemo	Beta-lactam	antibiotic
+PIPERACILLIN	antichemo	Beta-lactam	antibiotic
+PIPERACILLIN_SENSITIVE	antichemo	Beta-lactam	antibiotic
+BICYCLOMYCIN	antichemo	Bicyclomycin	antibiotic
+BICYCLOMYCIN_SENSITIVE	antichemo	Bicyclomycin	antibiotic
+DMP 840	other	bis-naphthalimide	antibiotic
+Phenethicillin	antichemo	Cell wall disrupter	general antibiotics
+ARYLAMIDE FOLDAMERS	antichemo	Cell-wall disrupter	synthetic antibiotics
+PMX	antichemo	Cell-wall disrupter	synthetic antibiotics
+CEFACLOR	antichemo	Cephalosporin	General antibiotic
+CEFAMANDOLE	antichemo	Cephalosporin	General antibiotic
+Cefazolin	antichemo	Cephalosporin	General antibiotic
+CEFEPIME_SENSITIVE	antichemo	Cephalosporin	General antibiotic
+CEFIXIME	antichemo	Cephalosporin	General antibiotic
+CEFMETAZOLE	antichemo	Cephalosporin	General antibiotic
+Cefoperazone	antichemo	Cephalosporin	General antibiotic
+CEFOXITIN	antichemo	Cephalosporin	General antibiotic
+CEFOXITIN_SENSITIVE	antichemo	Cephalosporin	General antibiotic
+CEFOXITIN_SENSITIVE IMIPENEM_SENSITIVE	antichemo	Cephalosporin	General antibiotic
+CEFSULODIN	antichemo	Cephalosporin	General antibiotic
+CEFTAZIDIME	antichemo	Cephalosporin	General antibiotic
+CEFTRIAXONE	antichemo	Cephalosporin	General antibiotic
+CEFUROXIME	antichemo	Cephalosporin	General antibiotic
+CEPHALORIDINE_SENSITIVE	antichemo	Cephalosporin	General antibiotic
+CEPHALOTHIN	antichemo	Cephalosporin	General antibiotic
+VIOMYCIN	antichemo	Antimicrobial peptide	antibiotic
+MONOCHLORAMINE	detergents	Disinfectant	chloramine
+CISPLATIN	antichemo	DNA cross-linking agent	antibiotic
+CERULENIN	antichemo	Fatty acid biosynthesis inhibitor	antibiotic
+TRICLOSAN	antichemo	Fatty acid biosynthesis inhibitor	antibiotic
+CIPROFLAXIN	antichemo	Fluoroquinolone	antibiotic
+CIPROFLAXIN_SENSITIVE	antichemo	Fluoroquinolone	antibiotic
+CIPROFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+ENOXACIN	antichemo	Fluoroquinolone	antibiotic
+FLUOROQUINOLONE	antichemo	Fluoroquinolone	antibiotic
+LEVOFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+LOMEFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+NAL_SENSITIVE	antichemo	Fluoroquinolone	antibiotic
+NALIDIXIC ACID	antichemo	Fluoroquinolone	antibiotic
+NALIDIXIC ACID_SENSITIVE	antichemo	Fluoroquinolone	antibiotic
+NORFLAXIN_SENSITIVE	antichemo	Fluoroquinolone	antibiotic
+NORFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+NORFLOXACIN_SENSITIVE	antichemo	Fluoroquinolone	antibiotic
+OFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+Patulin	other	fungal toxin	general antibiotic
+NITROFURAZONE	antichemo	Furan antibiotic	General antibiotics
+FUS_SENSITIVE	antichemo	fusidanes	antibiotic
+Fusaric acid	antichemo	fusidanes	general antibiotic
+FUSIDIC ACID	antichemo	fusidanes	antibiotic
+SODIUM AZIDE	detergents	General Biocide	antibiotic
+PHLEOMYCIN_SENSITIVE	antichemo	Glycopeptide antibiotic	antibiotic
+VANCOMYCIN	antichemo	Glycopeptide antibiotic	antibiotic
+VANCOMYCIN_SENSITIVE	antichemo	Glycopeptide antibiotic	antibiotic
+ETOPOSIDE	antichemo	Glycoside	antibiotic
+HARMANE	antichemo	heterocyclic amine antibiotic	general antibiotic
+CLINDAMYCIN	antichemo	lincosamide	antibiotic
+LINCOMYCIN	antichemo	lincosamide	antibiotic
+LINCOMYCIN_SENSITIVE	antichemo	lincosamide	antibiotic
+Apramycin	antichemo	Macrolides	general antibiotic
+JOSAMYCIN	antichemo	Macrolides	general antibiotic
+TROLEANDOMYCIN	antichemo	Macrolides	General antibiotics
+TYLOSIN	antichemo	Macrolides	general antibiotic
+OLEANDOMYCIN	antichemo	Macrolides	general antibiotic
+AZITHROMYCIN	antichemo	Macrolides	antibiotic
+CLARYTHROMYCIN	antichemo	Macrolides	antibiotic
+DOXYCYCLINE	antichemo	Macrolides	antibiotic
+ERM_SENSITIVE	antichemo	Macrolides	antibiotic
+ERYTHROMYCIN	antichemo	Macrolides	antibiotic
+ERYTHROMYCIN_SENSITIVE	antichemo	Macrolides	antibiotic
+MACROLIDE	antichemo	Macrolides	general antibiotics
+SPIRAMYCIN	antichemo	Macrolides	antibiotic
+SODIUM SALICYLATE	other	MarR inducer	general plant metabolite
+4_5-DIHYDROXY-2-CYCLOPENTEN-1-ONE	other	Membrane disrupter	general antibiotic
+DHCP	other	Membrane disrupter	general antibiotic
+AZETREONAM_SENSITIVE	antichemo	Monobactams	antibiotic
+AZTREONAM	antichemo	Monobactams	antibiotic
+NITROFURANTOIN	antichemo	Monobactams	antibiotic
+FURALTADONE	antichemo	nitrofuran	general antibiotic
+BLEOMYCIN	antichemo	Non-ribosomal peptide antibiotic	antibiotic
+BACIMETHRIN	antichemo	Nucleotide analog	antitumor
+PLUMBAGIN_SENSITIVE	other	Organic dyes	antibiotic
+GLYPHOSPHATE	other	Organophosphorous compound	pesticide
+5_7-Dichloro-8-hydroxyquinaldine	other	Other antibiotic	General antibiotics
+Ornidazole	oxidative	Oxidative Stress	general antibiotic
+FOSFOMYCIN	antichemo	phosphonic	antibiotic
+TIAMULIN	antichemo	Pleuromutilin	antibiotic
+CAPREOMYCIN	antichemo	Polypeptide antibiotic	General antibiotics
+Sodium nitrite	antichemo	preservative	general antibiotic
+PYRAZINAMIDE_SENSITIVE	antichemo	PYRAZINAMIDE	antibiotic
+CHIR-090	other	Research chemical	antibiotic
+CAM_SENSITIVE	antichemo	Ribosomal targeting	antibiotic
+CHLORAMPHENICOL	antichemo	Ribosomal targeting	antibiotic
+CHLORAMPHENICOL_SENSITIVE	antichemo	Ribosomal targeting	antibiotic
+FLORFENICOL_SENSITIVE	antichemo	Ribosomal targeting	antibiotic
+RIFAMPICIN	antichemo	Ribosomal targeting	antibiotic
+RIFAMPICIN_SENSITIVE	antichemo	Ribosomal targeting	antibiotic
+Sulfachloropyridazine	antichemo	Sulfa drug	antibiotic
+Sulfamethazine	antichemo	Sulfa drug	antibiotic
+SULFANILAMIDE	antichemo	Sulfa drug	antibiotic
+SULFATHIAZOLE	antichemo	Sulfa drug	antibiotic
+Sulfisoxazole	antichemo	Sulfa drug	antibiotic
+SULFA DRUG	antichemo	Sulfa drug	antibiotic
+SULFA DRUG_SENSITIVE	antichemo	Sulfa drug	antibiotic
+SULFADIAZINE	antichemo	Sulfa drug	antibiotic
+SULFAMETHAXOZOLE	antichemo	Sulfa drug	antibiotic
+SULFAMETHOXAZOL	antichemo	Sulfa drug	antibiotic
+SULFAMETHOXAZOLE_SENSITIVE	antichemo	Sulfa drug	antibiotic
+SULFAMONOMETHOXINE	antichemo	Sulfa drug	antibiotic
+THYMOL	solvents_biofuels	Terpene	Solvents
+THYMOL_SENSITIVE	solvents_biofuels	Terpene	Solvents
+MINOCYCLINE	antichemo	Tetracycline	antibiotic
+OXYTETRACYCLINE	antichemo	Tetracycline	antibiotic
+Oxytetracycline	antichemo	Tetracycline	general antibiotic
+TETRACYCLINE	antichemo	Tetracycline	antibiotic
+TETRACYCLINE_SENSITIVE	antichemo	Tetracycline	antibiotic
+Penimepicycline	antichemo	Tetracycline	general antibiotic
+Rolitetracycline	antichemo	Tetracycline	general antibiotic
+2_4-DIAMINO-6_7-DIISOPROPYL-PTERIDINE	antichemo	Unknown antibiotic	general antibiotic
+3_5-DINITROBENZENE	antichemo	Unknown antibiotic	general antibiotic
+BLASTICIDIN	antichemo	Unknown antibiotic	general antibiotic
+CHELERYTHRINE	antichemo	Unknown antibiotic	general antibiotic
+LIDOCANE	other	Unknown antibiotic	general antibiotic
+5-NITRO-2-FURALDEHYDE SEMICARBAZONE	antichemo	Unusual antibiotics	general antibiotic
+BILE	detergents	Antibiotics	Detergent
+CHOLATE	detergents	Antibiotics	Detergent
+TAUROCHOLATE	detergents	Antibiotics	Detergent
+GUANIDINE HYDROCHLORIDE	detergents	Cell wall disrupter	denaturing detergents
+Sanguinarine	detergents	Quaternary Detergent	Detergent
+NIAPROOF	detergents	Quaternary Detergent	Detergent
+BENZALKONIUM	detergents	Quaternary Detergent	Detergent
+BENZALKONIUM CHLORIDE_SENSITIVE	detergents	Quaternary Detergent	Detergent
+BENZETHONIUM CHLORIDE	detergents	Quaternary Detergent	Detergent
+BERBERINE	detergents	Quaternary Detergent	Detergent
+CETRIMIDE	detergents	Quaternary Detergent	Detergent
+CETYLDIMETHYLETHYL AMMONIUM BROMIDE	detergents	Quaternary Detergent	Detergent
+CETYLPYRIDINIUM BROMIDE	detergents	Quaternary Detergent	Detergent
+CETYLPYRIDINIUM CHLORIDE	detergents	Quaternary Detergent	Detergent
+CETYLTRIMETHYL AMMONIUM BROMIDE_SENSITIVE	detergents	Quaternary Detergent	Detergent
+CPC	detergents	Quaternary Detergent	Detergent
+Dodecyltrimethyl ammonium bromide	detergents	Quaternary Detergent	Detergent
+METHYLTRIOCTYLAMMONIUM CHLORIDE	detergents	Quaternary Detergent	Detergent
+TETRAPHENYLPHOSPHONIUM BROMIDE	detergents	Quaternary Detergent	Detergent
+SDS	detergents	Surfactants	Detergent
+SDS_SENSITIVE	detergents	Surfactants	Detergent
+TRITON X	detergents	Surfactants	Detergent
+FUFURAL	furans	Furans	Furan
+FURFURAL	furans	Furans	Furan
+HYDROLYSATE	furans	"Furans,short chain fatty acids,pH perturbation"	Environmental condition
+CINNAMALDEHYDE	furans	Phenolic acid	cinnamic acid derivative
+DIBUCAINE	general_antimetabolite	Anesthetic	Chemical
+PROCAINE	general_antimetabolite	Anesthetic	Chemical
+CHLOROPROMAZINE	general_antimetabolite	Antimetabolite	Chemical
+P-HYDROXYBENZOIC ACID_SENSITIVE	general_antimetabolite	Antimicrobial preservative	Preservative
+VERAPAMIL	general_antimetabolite	Calcium channel blocker	Chemical
+EPINEPHRINE	general_antimetabolite	Hormone	Chemical
+NOREPINEPHRINE	general_antimetabolite	Hormone	Chemical
+RADICICOL	general_antimetabolite	HSP90 inihibitor	Chemical
+GLYOXYLATE	general_antimetabolite	Metabolic intermediate	Metabolic intermediate
+METHYLGLYOXAL	general_antimetabolite	Metabolic intermediate	Metabolic intermediate
+METHYLGLYOXAL_SENSITIVE	general_antimetabolite	Metabolic intermediate	Metabolic intermediate
+6-Mercaptopurine	general_antimetabolite	Nucleotide biosynthesis inhibitor	Nucleotide analog
+RHODAMINE 6G	general_antimetabolite	Organic dyes	Dye
+6-HYDROXY-2-NAPHTHOIC ACID_SENSITIVE	general_antimetabolite	Research chemical	Chemical
+ALPHA-METHYL-D-GALACTOSIDE	general_growth	Alternative carbon source	Carbon sources
+BETA-D-ALLOSE	general_growth	Alternative carbon source	Carbon sources
+D-FRUCTOSE	general_growth	Alternative carbon source	Carbon sources
+D-GLUCURONATE	general_growth	Alternative carbon source	Carbon sources
+D-MANNITOL	general_growth	Alternative carbon source	Carbon sources
+D-MELIBIOSE	general_growth	Alternative carbon source	Carbon sources
+GLUCONATE CONSUMPTION	general_growth	Alternative carbon source	Carbon sources
+LACTATE CONSUMPTION	general_growth	Alternative carbon source	Carbon sources
+MELIBIONIC ACID	general_growth	Alternative carbon source	Carbon sources
+ALANINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+Alanine-Asparagine	general_growth	Amino acid carbon source	Carbon sources
+Alanine-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Alanine-Serine	general_growth	Amino acid carbon source	Carbon sources
+ALANINE-SERINE	general_growth	Amino acid carbon source	Carbon sources
+Arginine-Arginine	general_growth	Amino acid carbon source	Carbon sources
+Arginine-Lysine	general_growth	Amino acid carbon source	Carbon sources
+Arginine-Phenylalanine	general_growth	Amino acid carbon source	Carbon sources
+Arginine-Tyrosine	general_growth	Amino acid carbon source	Carbon sources
+ASPARAGINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+ASPARTATE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+Aspartate Utilization	general_growth	Amino acid carbon source	Carbon sources
+Aspartate-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Aspartate-Phenylalanine	general_growth	Amino acid carbon source	Carbon sources
+D-ALA-GLY-GLY	general_growth	Amino acid carbon source	Carbon sources
+D-ALANINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+D-Alanine-Glycine	general_growth	Amino acid carbon source	Carbon sources
+D-LYSINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+Glutamate-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+GLYCINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+Glycine-D-alanine	general_growth	Amino acid carbon source	Carbon sources
+Glycine-Glycine-D-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Glycine-Glycine-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Glycine-Phenylalanine-Phenylalanine	general_growth	Amino acid carbon source	Carbon sources
+Glycine-Tyrosine	general_growth	Amino acid carbon source	Carbon sources
+GLYCYL-L-ASPARTATE	general_growth	Amino acid carbon source	Carbon sources
+Histidine-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+Isoleucine-Tyrosine	general_growth	Amino acid carbon source	Carbon sources
+L-arginine	general_growth	Amino acid carbon source	Carbon sources
+L-ASPARAGINE	general_growth	Amino acid carbon source	Carbon sources
+L-ASPARTATE Utilization	general_growth	Amino acid carbon source	Carbon sources
+Leucine-Alanine	general_growth	Amino acid carbon source	Carbon sources
+Leucine-Glutamate	general_growth	Amino acid carbon source	Carbon sources
+Leucine-Glycine	general_growth	Amino acid carbon source	Carbon sources
+Leucine-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+L-LYSINE UTILIZATION	general_growth	Amino acid carbon source	Carbon sources
+Lysine-Arginine	general_growth	Amino acid carbon source	Carbon sources
+Lysine-serine	general_growth	Amino acid carbon source	Carbon sources
+Methionine-Arginine	general_growth	Amino acid carbon source	Carbon sources
+Methionine-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+Phenylalanine-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+POLY-L-LYSINE	general_growth	Amino acid carbon source	Carbon sources
+Proline-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Serine-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Tryptophan-Leucine	general_growth	Amino acid carbon source	Carbon sources
+Tryptophan-Phenylalanine	general_growth	Amino acid carbon source	Carbon sources
+Tryptophan-Tryptophan	general_growth	Amino acid carbon source	Carbon sources
+Tryptophan-Tyrosine	general_growth	Amino acid carbon source	Carbon sources
+Tyrosine Utilization	general_growth	Amino acid carbon source	Carbon sources
+TYROSINE-Phenylalanine	general_growth	Amino acid carbon source	Carbon sources
+Tyrosine-Tyrosine	general_growth	Amino acid carbon source	Carbon sources
+THEOPHYLLINE	general_growth	Caffeine-like compound	Chemical
+1-2-PROPANEDIOL	general_growth	Diol	Diol
+Ammonia Chloride	general_growth	Growth condition	Environmental condition
+Anaerobic	general_growth	Growth condition	Environmental condition
+FREEZE THAW CYCLES	general_growth	Growth condition	Environmental condition
+GLUCOSAMINE 	general_growth	Growth condition	Sugar
+GLYCEROL CONSUMPTION	general_growth	Growth condition	Environmental condition
+GROWTH	general_growth	Growth condition	Environmental condition
+GROWTH DEFECT SUPPRESSOR	general_growth	Growth condition	Environmental condition
+LIFESPAN EXTENSION_SENSITIVE	general_growth	Growth condition	Environmental condition
+LOW SHEAR MODELED MICROGRAVITY	general_growth	Growth condition	Environmental condition
+LURIA-BERTANI BROTH_SENSITIVE	general_growth	Growth condition	Environmental condition
+MALTOSE 	general_growth	Growth condition	Sugar
+MOPS_SENSITIVE	general_growth	Growth condition	Environmental condition
+N-ACETYLGLUCOSAMINE 	general_growth	Growth condition	Sugar
+ALHPA-KETOGLUTARATE	general_growth	Metabolic intermediate	Metabolic intermediate
+ALPHA-HYDROXYBUTYRATE	general_growth	Metabolic intermediate	Metabolic intermediate
+ALPHA-KETOBUTYRATE	general_growth	Metabolic intermediate	Metabolic intermediate
+BETA-HYDROXYPYRUVATE	general_growth	Metabolic intermediate	Metabolic intermediate
+D-FRUCTOSE 6-PHOSPHATE	general_growth	Metabolic intermediate	Metabolic intermediate
+D-GLUCOSE 6-PHOSPHATE	general_growth	Metabolic intermediate	Metabolic intermediate
+DL-ALPHA-GLYCEROL PHOSPHATE	general_growth	Metabolic intermediate	Metabolic intermediate
+GLYOXAL	general_growth	Metabolic intermediate	Metabolic intermediate
+GUANOSINE	general_growth	Metabolic intermediate	Metabolic intermediate
+L-CYSTEATE	general_growth	Metabolic intermediate	Metabolic intermediate
+L-ORNITHINE	general_growth	Metabolic intermediate	Metabolic intermediate
+N-ACETYL-D-GLUCOSAMINE	general_growth	Metabolic intermediate	Metabolic intermediate
+RICH MEDIUM	general_growth	Rich media adaptation	Media types
+FUCOSE	general_growth	Sugar	Sugar
+FUCOSE_SENSITIVE	general_growth	Sugar	Sugar
+GLUCOSE_SENSITIVE	general_growth	Sugar	Sugar
+ALKALINE AMINO ACID UTILIZATION	general_growth	Use of Amino acids under unusual conditions	Media types
+HIGH PRESSURE	high_gravity	Growth condition	Environmental condition
+NA2CO3	high_ph	pH perturbation	Environmental condition
+SODIUM BICARBONATE	high_ph	pH perturbation	Environmental condition
+ALKALINE	high_ph	pH perturbation	Environmental condition
+ALKALINE_SENSITIVE	high_ph	pH perturbation	Environmental condition
+HEAT_SENSITIVE	high_temperature	Thermal perturbation	Environmental condition
+HIGH TEMPERATURE	high_temperature	Thermal perturbation	Environmental condition
+HIGH TEMPERATURE_SENSITIVE	high_temperature	Thermal perturbation	Environmental condition
+THERMAL	high_temperature	Thermal perturbation	Environmental condition
+ACID	low_ph	pH perturbation	Environmental condition
+ACID STRESS	low_ph	pH perturbation	Environmental condition
+ACID_SENSITIVE	low_ph	pH perturbation	Environmental condition
+PH SPECTRUM	low_pH	pH Range tolerance	Environmental condition
+COLD_SENSITIVE	low_temperature	Thermal perturbation	Environmental condition
+LOW TEMPERATURE_SENSITIVE	low_temperature	Thermal perturbation	Environmental condition
+SODIUM ARSENITE	metal_ions	Arsenic drug	antibiotic
+ANTIMONY CHLORIDE	metal_ions	Metal salt antibiotic	general antibiotic
+EDTA_SENSITIVE	metal_ions	Metal Chelators	Dentate compound
+EGCG	metal_ions	Metal Chelators	Dentate compound
+EGTA	metal_ions	Metal Chelators	Dentate compound
+ETDA_SENSITIVE	metal_ions	Metal Chelators	Dentate compound
+1_10-Phenanthroline	metal_ions	Chelating agent	Metal ion scavengers
+Potassium chromate	metal_ions	Chromates	Metals
+Sodium dichromate	metal_ions	Chromates	Metals
+TOXIC IONS	metal_ions	Generic metal stress	Metals
+MAGNESIUM SULFATE	metal_ions	Metal ion toxicity	Metals
+MANGANESE CHLORIDE	metal_ions	Metal ion toxicity	Metals
+Sodium Selenite	metal_ions	Metal ion toxicity	Metals
+SODIUM TUNGSTATE	metal_ions	Metal ion toxicity	Metals
+ANTIMONITE_SENSITIVE	metal_ions	Metal Ions	Metals
+ARSENITE_SENSITIVE	metal_ions	Metal Ions	Metals
+CADMIUM	metal_ions	Metal Ions	Metals
+CADMIUM_SENSITIVE	metal_ions	Metal Ions	Metals
+CHROMIUM_SENSITIVE	metal_ions	Metal Ions	Metals
+COBALT	metal_ions	Metal Ions	Metals
+COBALT CHLORIDE	metal_ions	Metal Ions	Metals
+COBALT CHLORIDE_SENSITIVE	metal_ions	Metal Ions	Metals
+COBALT_SENSITIVE	metal_ions	Metal Ions	Metals
+COCL2	metal_ions	Metal Ions	Metals
+COPPER	metal_ions	Metal Ions	Metals
+COPPER_SENSITIVE	metal_ions	Metal Ions	Metals
+GOLD	metal_ions	Platinum group	Metals
+Iron	metal_ions	Metal Ions	Metals
+MERCURY	metal_ions	Metal Ions	Metals
+MERCURY_SENSITIVE	metal_ions	Metal Ions	Metals
+METAL IONS	metal_ions	Metal Ions	Metals
+NICKEL	metal_ions	Metal Ions	Metals
+NICKEL_SENSITIVE	metal_ions	Metal Ions	Metals
+POTASSIUM TELLURITE_SENSITIVE	metal_ions	Metal Ions	Metals
+SILVER	metal_ions	Platinum group	Metals
+SILVER_SENSITIVE	metal_ions	Platinum group	Metals
+SODIUM IONS_SENSITIVE	metal_ions	Metal Ions	Metals
+TELLURITE	metal_ions	Metal Ions	Metals
+ZINC	metal_ions	Metal Ions	Metals
+ZINC_SENSITIVE	metal_ions	Metal Ions	Metals
+Nickel Chloride	metal_ions	Nickel	metal ions
+ORGANIC MERCURY	metal_ions	organic mercury compound	metal_ions
+ANTIMONY	metal_ions	Poisonous metal	antimicrobial metals
+ARSENIC	metal_ions	Poisonous metal	antimicrobial metals
+MMS	mutagens	Alkylating agent	Mutagenic compounds
+PROPIDIUM IODIDE	mutagens	Frameshift mutagen	antibiotic
+MITOMYCIN C	mutagens	Mitomycins	antibiotic
+MITOMYCIN C_SENSITIVE	mutagens	Mitomycins	antibiotic
+BROMOACETATE	mutagens	Alkylating agent	Mutagenic compounds
+BROMOACETATE_SENSITIVE	mutagens	Alkylating agent	Mutagenic compounds
+METHYL METHANESULFONATE_SENSITIVE	mutagens	Alkylating agent	Mutagenic compounds
+9-Aminoacridine	mutagens	Frameshift mutagen	mutagens
+ACRIFLAVINE	mutagens	Frameshift mutagen	Mutagenic compounds
+ACRIFLAVINE_SENSITIVE	mutagens	Frameshift mutagen	Mutagenic compounds
+ETHIDIUM BROMIDE	mutagens	Frameshift mutagen	Mutagenic compounds
+ETHIDIUM BROMIDE_SENSITIVE	mutagens	Frameshift mutagen	Mutagenic compounds
+PROFLAVINE	mutagens	Frameshift mutagen	Mutagenic compounds
+Mutagens	mutagens	Mutagenic agents	General mutagens
+6-HYDROXYLAMINOPURINE_SENSITIVE	mutagens	Nucleotide analog	Mutagenic compounds
+AZIDOTHYMIDINE	mutagens	Nucleotide analog	Mutagenic compounds
+AZIDOTHYMIDINE_SENSITIVE	mutagens	Nucleotide analog	Mutagenic compounds
+AZT_SENSITIVE	mutagens	Nucleotide analog	Mutagenic compounds
+HYDROXYUREA_SENSITIVE	mutagens	Nucleotide analog	Mutagenic compounds
+S-NITROSOGLUTATHIONE	mutagens	Oxidative stressor	Mutagenic compounds
+MAGNESIUM SULFATE LIMITATION	nutrient_limitation	Magnesium limitation	Growth limitation
+Glucose LIMITATION	nutrient_limitation	Growth condition	Environmental condition
+PHOSPHORUS LIMITATION	nutrient_limitation	Growth condition	Environmental condition
+CITRATE	organic_acid (neutral)	carboxylic acid	Acids
+CITRIC ACID	organic_acid (neutral)	carboxylic acid	Acids
+CROTONATE	organic_acid (neutral)	carboxylic acid	Acids
+Fumarate	organic_acid (neutral)	carboxylic acid	Acids
+FUMARIC ACID	organic_acid (neutral)	carboxylic acid	Acids
+MALATE	organic_acid (neutral)	carboxylic acid	Acids
+MALIC ACID	organic_acid (neutral)	carboxylic acid	Acids
+METHACRYLATE	organic_acid (neutral)	carboxylic acid	Acids
+SODIUM-METHACRYLATE	organic_acid (neutral)	carboxylic acid	Acids
+TARTRATE	organic_acid (neutral)	Dicarboxylic acid	Acids
+3-HP	organic_acid (neutral)	Organic acid	Acids
+ACETATE	organic_acid (neutral)	Organic acid	Acids
+ACETATE_SENSITIVE	organic_acid (neutral)	Organic acid	Acids
+ACETIC ACID	organic_acid (neutral)	Organic acid	Acids
+ITACONATE	organic_acid (neutral)	Organic acid	Acids
+ITACONIC ACID	organic_acid (neutral)	Organic acid	Acids
+LACTATE	organic_acid (neutral)	Organic acid	Acids
+LEVULINIC ACID	organic_acid (neutral)	Organic acid	Acids
+SUCCINATE	organic_acid (neutral)	Organic acid	Acids
+SUCCINIC ACID	organic_acid (neutral)	Organic acid	Acids
+BUTYL ACETATE	organic_acid (neutral)	Short chain fatty acid	Fatty acids
+ETHYLENE GLYCOL	osmotic_stress	Antifreeze	Osmotic strength increase
+DEHYDRATION	osmotic_stress	Dehydration stress	Environmental condition
+DESICCATION	osmotic_stress	Dehydration stress	Environmental condition
+DESSICATION	osmotic_stress	Dehydration stress	Environmental condition
+OSMOTIC	osmotic_stress	General osmotic stress	Environmental condition
+OSMOTIC STRESS_SENSITIVE	osmotic_stress	General osmotic stress	Environmental condition
+OSMOLYTIC AGENTS	osmotic_stress	Generic osmotic stress	Osmotic stress
+CHLORATE	osmotic_stress	Ionic stress	Environmental condition
+NACL	osmotic_stress	Ionic stress	Environmental condition
+POTASSIUM ION	osmotic_stress	Ionic stress	Environmental condition
+SODIUM CHLORIDE	osmotic_stress	Ionic stress	Environmental condition
+SODIUM CHLORIDE_SENSITIVE	osmotic_stress	Ionic stress	Environmental condition
+CESIUM CHLORIDE	osmotic_stress	Ionic stress	Salt
+GLUCOSE	osmotic_stress	Ionic stress	Environmental condition
+GLYCEROL	osmotic_stress	Ionic stress	Environmental condition
+LITHIUM CHLORIDE	osmotic_stress	Ionic stress	Salt
+HYPOOSMOTIC_SENSITIVE	osmotic_stress	Water stress	Environmental condition
+SODIUM BROMATE	other	Halogen	halide compound
+GLUCURONAMIDE	other	6-carbon acid	Unknown molecules
+HYDROXYLAMINE	other	Amine compound	Amine
+Trifluoperazine	other	antidepressant	other drug
+KETOPROFEN	other	Anti-inflammatory	Drug
+NITRITE_SENSITIVE	other	Antimicrobial preservative	Preservative
+Orphenadrine	other	antiparkinson's	other drug
+Amitriptyline	other	antipsychotic	other drug
+Chlorpromazine	other	antipsychotic	other drug
+Thioridazine	other	antipsychotic	other drug
+INDOLE	other	Bacterial hormone	quorom sensing
+INDOLEACETIC ACID	other	Bacterial hormone	quorom sensing
+BROMOSUCCINATE	other	Bromine-substituted dicarboxylic acid	organic synthesis
+CAFFEINE	other	caffeine	phenolic acid
+2_2'-DIPYRIDYL	other	chemical building block	organic synthesis
+PUTRESCINE	other	Diamine	General diamine
+BETA-METHYL-D-GLUCURONATE	other	Drug precursor	Drug
+IODONITROTETRAZOLIUM VIOLET	other	Dye	Stains
+RUTHENIUM RED	other	Dye	Stains
+RADISH SPROUTS	other	Growth condition	epiphytic growth
+ROMAINE_LETTUCE	other	Growth condition	epiphytic growth
+SPINACH	other	Growth condition	epiphytic growth
+ROMAINE_LETTUCE_LYSATE	other	Growth inhibitor	plant lysate growth
+IODOACETATE	other	halogen	halide compound
+URINARY_TRACT_ENVIRONMENT	other	Infection	mammalian growth
+URINARY_TRACT_INFECTION	other	Infection	mammalian growth
+BUTYROLACTONE	other	Lactone	Chemical
+CALCOFLUOR 	other	Organic dyes	Dyes
+18-CROWN-6 ETHER	other	phase transfer catalyst	organic synthesis
+TETRAPHENYLPHOSPHONIUM ION	other	phase transfer catalyst	organic synthesis
+GALLIC ACID	other	Phenolic acid	Plant-derived compounds
+MYRICETIN	other	Phenolic acid	Plant-derived compounds
+METHYLENE DIPHOSPHONATE	other	Tc Binding Agent	Metal binding agent
+Pridinol	other	tranquilizer	other drug
+CCCP_SENSITIVE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+FCCP	oxidative	Electron transport chain uncoupling agent	Environmental condition
+METHYL VIOGEN_SENSITIVE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+METHYL VIOLOGEN_SENSITIVE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+METHYLVIOLOGEN	oxidative	Electron transport chain uncoupling agent	Environmental condition
+PARAQUAT_SENSITIVE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+PHENAZINE METHOSULFATE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+PHENAZINE METHOSULFATE_SENSITIVE	oxidative	Electron transport chain uncoupling agent	Environmental condition
+RESPIRATION AnTAGONISTS	oxidative	Electron transport chain uncoupling agent	Environmental condition
+CRYSTAL VIOLET	oxidative	General oxidative stress	Environmental condition
+OXIDATIVE	oxidative	General oxidative stress	Environmental condition
+OXIDATIVE STRESS	oxidative	General oxidative stress	Environmental condition
+OXIDATIVE_SENSITIVE	oxidative	General oxidative stress	Environmental condition
+BLEACH	oxidative	Hypochlorite generator	Environmental condition
+BLEACH_SENSITIVE	oxidative	Hypochlorite generator	Environmental condition
+HOCL	oxidative	Hypochlorite generator	Environmental condition
+NITRIC OXIDE_SENSITIVE	oxidative	Nitrate-based oxidative stress	Environmental condition
+SELENOLIPOIC ACID	oxidative	Nitrate-based oxidative stress	Environmental condition
+CUMENE HYDROPEROXIDE_SENSITIVE	oxidative	Peroxide stress	Environmental condition
+H2O2	oxidative	Peroxide stress	Environmental condition
+H2O2_SENSITIVE	oxidative	Peroxide stress	Environmental condition
+HYDROGEN PEROXIDE	oxidative	Peroxide stress	Environmental condition
+PEROXIDE	oxidative	Peroxide stress	Environmental condition
+T-BUTYL HYDROPEROXIDE	oxidative	Peroxide stress	Environmental condition
+T-BUTYL HYDROPEROXIDE_SENSITIVE	oxidative	Peroxide stress	Environmental condition
+CARBON MONOXIDE	oxidative	Poisonous gas	respiration inhibitor
+CO	oxidative	Poisonous gas	respiration inhibitor
+GLUTATHIONE	oxidative	Redox compound	protective metabolite
+SUPEROXIDE	oxidative	Superoxide stress	Environmental condition
+IONIZING RADIATION	radiation	General ionizing radiation	Environmental condition
+IONIZING RADIATION_SENSITIVE	radiation	General ionizing radiation	Environmental condition
+RADIATION	radiation	General ionizing radiation	Environmental condition
+UV	radiation	Lower energy ionizing radiation	Environmental condition
+UV RADIATION	radiation	Lower energy ionizing radiation	Environmental condition
+UV RADIATION_SENSITIVE	radiation	Lower energy ionizing radiation	Environmental condition
+UV_SENSITIVE	radiation	Lower energy ionizing radiation	Environmental condition
+GAMMA RAYS	radiation	Very high energy ionizing radiation	Environmental condition
+1-HEXENE	solvents_biofuels	Alpha-Olefin	Hydrocarbons
+DECANOIC ACID	solvents_biofuels	Fatty Acids	Chemical
+MEDIUM CHAIN FATTY ACIDS	solvents_biofuels	Fatty acids	medium length fatty acids
+CYCLOHEXANE	solvents_biofuels	Hexanes	Solvents
+N-HEXANE	solvents_biofuels	Hexanes	Solvents
+TOLUENE	solvents_biofuels	Hexanes	Solvents
+2-BUTANOL	solvents_biofuels	Higher Alcohols	Solvents
+BUTANEDIOL	solvents_biofuels	Higher Alcohols	Chemical
+BUTANOL	solvents_biofuels	Higher Alcohols	Solvents
+I-BUTANOL	solvents_biofuels	Higher Alcohols	Solvents
+ISOBUTANOL	solvents_biofuels	Higher Alcohols	Solvents
+N-BUTANOL	solvents_biofuels	Higher Alcohols	Solvents
+ISOOCTANE_SENSITIVE	solvents_biofuels	Hydrocarbons	Solvents
+OCTANE	solvents_biofuels	Hydrocarbons	Solvents
+XYLENE	solvents_biofuels	Industrial solvent	xylenes
+IONIC LIQUIDS	solvents_biofuels	Ionic Liquids	Chemical
+1-2-4-BUTANETRIOL	solvents_biofuels	Polymer component	Solvents
+1-NAPHTHOL	solvents_biofuels	Polymer component	Solvents
+3_4-DIMETHOXYBENZYL ALCOHOL	solvents_biofuels	secondary metabolite	lignin breakdown product
+ETHANOL	solvents_biofuels	Short alcohols	Solvents
+ETHANOL_SENSITIVE	solvents_biofuels	Short alcohols	Solvents
+PROPIONATE_SENSITIVE	solvents_biofuels	Short chain fatty acid	Solvents
+ALPHA-PINENE	solvents_biofuels	Terpene	Solvents
+CAMPHOR	solvents_biofuels	Terpene	Solvents
+GERANIOL_SENSITIVE	solvents_biofuels	Terpene	Solvents
+ISOPENTENOL	solvents_biofuels	Terpene	Solvents
+LIMONENE	solvents_biofuels	Terpene	Solvents
+GEPOTIDACIN	antichemo	experimental antibiotic	General antibiotic
+PROPRIONATE	organic_acid (neutral)	Short-chain fatty acid	Acids
+186 PHAGE	antichemo	enterophage	phages
+2_3-BUTANEDIOL	solvents_biofuels	Higher Alcohols	Chemical
+3-AMINO-1_2_4-TRIAZOLE	aa_antimetabolite	Antimetabolite	Antimetabolite
+4-NITROQUINOLINE-1-OXIDE	antichemo	Fluoroquinolone	antibiotic
+ANGINEX ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+APIDAECIN IB ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+BACTENECIN 5 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+BACTENECTIN 7 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+CAP11-1-18M2 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+CAP18 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+CECROPIN P1 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+D28 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+HUMAN BETA-DEFENSIN-3 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+IND ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+INDOLICIDIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+INDOLICIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+LL-37 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+MAGAININ 2 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+MELITTIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+NCR335 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PEPTIDE GLYCINE-LEUCINE AMIDE ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PEX ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PEXIGANAN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PGLA ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PLEURICIDIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PLEUROCIDIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+POLYMYXINB ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PR39 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PR-39 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PROA ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PROTAMINE ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PROTEGRIN-1 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+PYRRHOCORICIN ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+R8 ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+SB006 (M6) ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+SYNTHETIC CECROPIN-MELITTIN HYBRID ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+TACHYPLESIN II ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+TPII ANTIMICROBIAL PEPTIDE	antichemo	Antimicrobial peptide	antibiotic
+CEV2 PHAGE	antichemo	enterophage	phages
+LAMBDA PHAGE	antichemo	enterophage	phages
+LZ4 PHAGE	antichemo	enterophage	phages
+P1 PHAGE	antichemo	enterophage	phages
+P2 PHAGE	antichemo	enterophage	phages
+SUB5 PHAGE	antichemo	enterophage	phages
+T4 PHAGE	antichemo	enterophage	phages
+T5 PHAGE	antichemo	enterophage	phages
+T6 PHAGE	antichemo	enterophage	phages
+T7 PHAGE	antichemo	enterophage	phages
+5-AMINOLEVULINIC ACID	other	amino acid	Chemical
+5-FLUOROOROTIC ACID	general_antimetabolite	Nucleotide analog	selection agent
+5-FLUOROURACIL	general_antimetabolite	Nucleotide analog	selection agent
+ACETONE	solvents_biofuels	ketone	Solvents
+ACETONITRILE	solvents_biofuels	nitrile	Solvents
+ADIPIC ACID	organic_acid (neutral)	Dicarboxylic acid	Chemical
+AZLOCILLIN	antichemo	Beta-lactam	antibiotic
+BLASTICIDINE S	antichemo	nucleoside	antibiotic
+CEFALOTIN	antichemo	cephalosporin	antibiotic
+CINOXACIN	antichemo	quinolone	antibiotic
+COUMARIC ACID	furans	Phenolic acid	Plant-derived compounds
+DELAFLOXACIN	antichemo	Fluoroquinolone	antibiotic
+DL-2-AMINOBUTYRIC ACID	other	amino acid	Chemical
+DL-3-HYDROXYNORVALINE	aa_antimetabolite	Antimetabolite	Antimetabolite
+DL-SERINE HYDROXAMATE	aa_antimetabolite	Antimetabolite	Antimetabolite
+DORIPENEM	antichemo	Beta-lactam	antibiotic
+GALLIUM	metal_ions	Metal Ions	Metals
+GLUTARIC ACID	organic_acid (neutral)	Dicarboxylic acid	Chemical
+GYRASE INHIBITOR	antichemo	Antibiotics	antibiotic
+HEXAMETHYLENEDIAMINE	other	Diamine	Chemical
+HEXANOIC ACID	organic_acid (neutral)	Fatty acids	Chemical
+ISOBUTYRIC ACID	organic_acid (neutral)	Fatty acids	Chemical
+ISOPRENOL	solvents_biofuels	Higher Alcohols	Solvents
+ISOPROPANOL	solvents_biofuels	Higher Alcohols	Solvents
+L-GLUTAMIC ACID-GAMMA-HYDRAZIDE	other	Amino acid derivative	Chemical
+MEROPENEM	antichemo	Beta-lactam	antibiotic
+MUPIROCIN	antichemo	Non-ribosomal peptide antibiotic	antibiotic
+NITROXOLINE	antichemo	quinoline	antibiotic
+N-METHYL-N-OCTYLAMINE	other	Amine compound	Chemical
+N-PROPANOL	solvents_biofuels	Higher Alcohols	Solvents
+OCTANOIC ACID	organic_acid (neutral)	Fatty acids	Chemical
+PROMETHAZINE	other	Human drug	other drug
+PROPANEDIOL	general_growth	Diol	Diol
+PROTAMINE SULFATE	other	Human drug	other drug
+SABINENE	solvents_biofuels	Terpene	Chemical
+VANILLIN	other	Phenolic acid	Plant-derived compounds
+ZEOCIN	antichemo	Aminoglycoside	antibiotic
+1-PENTANOL	solvents_biofuels	Higher Alcohols	Solvents
+CEPHALEXIN	antichemo	Beta-lactam	antibiotic
+CITRAL	solvents_biofuels	Terpene	Solvents
+CARVACROL	solvents_biofuels	Terpene	Solvents
+1_10-Phenanthroline	other	Chelating agent	Chemical
+BENSERAZIDE	other	Human drug	other drug
+STYRENE	solvents_biofuels	Hydrocarbons	Solvents
+ISOPENTANOL	solvents_biofuels	Higher Alcohols	Solvents
+Pinene	solvents_biofuels	Terpene	Chemical
+CEV1 PHAGE	antichemo	enterophage	phages
+N4 PHAGE	antichemo	enterophage	phages
+T2 PHAGE	antichemo	enterophage	phages
+T3 PHAGE	antichemo	enterophage	phages
+Cholin acetate	solvents_biofuels	Ionic Liquids	Chemical
+[EMIM]Cl	solvents_biofuels	Ionic Liquids	Chemical
+[EMIM]Ac	solvents_biofuels	Ionic Liquids	Chemical
+DMSO	solvents_biofuels	Solvents	Solvents
+syringaldehyde	furans	Phenolic acid	Plant-derived compounds
+HMF	furans	Phenolic acid	Plant-derived compounds
+Sodium Fluoride	metal_ions	Fluoride	Anion
+Aluminum chloride	metal_ions	Metal Ions	Metals
+Chloride	metal_ions	Chloride	Anion
+Benzoic Acid	antichemo	Antimicrobial preservative	Preservative
+Thallium	metal_ions	Metal Ions	Metals

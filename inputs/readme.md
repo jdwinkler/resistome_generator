@@ -1,0 +1,1 @@
+Storage location for key resistome inputs. Each subfolder should have a readme explaining the purpose of the files.

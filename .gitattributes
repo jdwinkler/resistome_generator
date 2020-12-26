@@ -1,0 +1,32 @@
+# Basic .gitattributes for a python repo.
+
+# Source files
+# ============
+*.pxd    text diff=python eol=crlf
+*.py     text diff=python eol=crlf
+*.py3    text diff=python eol=crlf
+*.pyw    text diff=python eol=crlf
+*.pyx    text diff=python eol=crlf
+*.pyz    text diff=python eol=crlf
+*.pyi    text diff=python eol=crlf
+
+# Binary files
+# ============
+*.db     binary
+*.p      binary
+*.pkl    binary
+*.pickle binary
+*.pyc    binary
+*.pyd    binary
+*.pyo    binary
+*.gz     binary
+*.rar    binary
+
+
+# Jupyter notebook
+*.ipynb  text
+
+# Note: .db, .p, and .pkl files are associated
+# with the python modules ``pickle``, ``dbm.*``,
+# ``shelve``, ``marshal``, ``anydbm``, & ``bsddb``
+# (among others).

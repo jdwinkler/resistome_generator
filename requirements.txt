@@ -1,0 +1,11 @@
+scikit-learn>=0.23.2
+tensorflow>=0.24
+scipy>=1.5.4
+numpy>=1.19
+cobra>=0.20
+networkx>=2.5
+psycopg2>=2.8.6
+matplotlib>=3.3.3
+python-igraph>=0.8.3
+biopython>=1.78
+obonet>=0.2.6
