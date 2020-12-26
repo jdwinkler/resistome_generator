@@ -285,9 +285,14 @@ def build_mutational_prediction_table(cur,
 
     columns = ['gene_id', 'position', 'wt_aa', 'mutant_aa', 'score', 'method']
 
+
     if 'inps' in methods:
 
         inps_protein_data = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'inps.pred.txt')
+
+        if not os.path.exists(inps_protein_data):
+            print('Protein stability data for INPS was not found, skipping requested upload...')
+            return
 
         with open(inps_protein_data, 'r') as f:
 
@@ -318,6 +323,7 @@ def build_mutational_prediction_table(cur,
 
         if not os.path.exists(target_directory):
             print('Did not find SNAP2 directory for strain, skipping: %s' % strain_to_process)
+            return
         else:
 
             print('Uploading SNAP2 data for %s' % strain_to_process)
