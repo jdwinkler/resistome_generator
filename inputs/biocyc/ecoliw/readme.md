@@ -1,0 +1,1 @@
+Placeholder file for E. coli W.
