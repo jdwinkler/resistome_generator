@@ -1,0 +1,1 @@
+Location to put SNAP2 folders (by strain).

@@ -8,6 +8,8 @@ import psycopg2.extras
 
 from resistome import constants
 from resistome.utils import database_utils
+from typing import List, Tuple
+import glob
 
 from resistome.utils.regulondb_parser import extract_mg1655_genome_features
 
@@ -269,7 +271,7 @@ def build_mutational_prediction_table(cur,
                                       strain_to_process,
                                       unique_id_to_accession_dict,
                                       accession_to_gene_id,
-                                      methods={'inps'}, snap2_genes_to_process=set()):
+                                      methods={'inps'}, variant_effect_predictor_genes=set()):
 
     """
 
@@ -284,7 +286,6 @@ def build_mutational_prediction_table(cur,
     """
 
     columns = ['gene_id', 'position', 'wt_aa', 'mutant_aa', 'score', 'method']
-
 
     if not os.path.exists(os.path.join(constants.INPUT_DIR, 'protein_predictions', 'biocyc_to_accession_map.txt')):
         raise AssertionError('Missing mapping file-run inputs/protein_predictions/match_seq.py to generate.')
@@ -325,13 +326,13 @@ def build_mutational_prediction_table(cur,
 
     if 'snap2' in methods:
 
-        if len(snap2_genes_to_process) == 0:
+        if len(variant_effect_predictor_genes) == 0:
             raise AssertionError('Given the size of the SNAP2 dataset, you need to specify which genes you'
                                  'want to extract data from.')
 
-        snap2_dir = os.path.join(constants.INPUT_DIR, 'protein_predictions')
+        demask_dir = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'snap2')
 
-        target_directory = os.path.join(snap2_dir, strain_to_process.upper())
+        target_directory = os.path.join(demask_dir, strain_to_process.upper())
 
         if not os.path.exists(target_directory):
             print('Did not find SNAP2 directory for strain, skipping: %s' % strain_to_process)
@@ -362,29 +363,79 @@ def build_mutational_prediction_table(cur,
                               % accession_in_file)
                         raise
 
-                    if accession not in snap2_genes_to_process:
+                    if accession not in variant_effect_predictor_genes:
                         continue
 
                     if accession not in accession_to_gene_id:
                         print('unknown gene accession', accession)
                         continue
 
-                    snap2_tuples = parse_snap2_file(accession_to_gene_id[accession],
+                    demask_tuples = parse_snap2_file(accession_to_gene_id[accession],
                                                     accession,
                                                     os.path.join(target_directory, snap2_data),
                                                     score_threshold=0.0)
 
-                    assert len(snap2_tuples) > 0
+                    assert len(demask_tuples) > 0
 
                     psycopg2.extras.execute_values(cur,
                                                    sql,
-                                                   snap2_tuples,
+                                                   demask_tuples,
                                                    page_size=10000)
                 except Exception as e:
                     print('Error when processing %s: %s; skipping' % (snap2_data, e))
                     continue
 
-        # print('done with schema %s' % strain)
+    if 'DEMASK' in methods:
+
+        if len(variant_effect_predictor_genes) == 0:
+            raise AssertionError('Given the size of the DeMaSk dataset, you need to specify which genes you'
+                                 'want to extract data from.')
+
+        demask_dir = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'demask')
+
+        target_directory = os.path.join(demask_dir, strain_to_process.upper())
+
+        if not os.path.exists(target_directory):
+            print('Did not find DeMaSk directory for strain, skipping: %s' % strain_to_process)
+            return
+        else:
+
+            print('Uploading DeMaSk data for %s' % strain_to_process)
+
+            sql = prepare_tuple_style_sql_query('protein_stability', strain_to_process, columns)
+
+            for fname in glob.glob(os.path.join(target_directory, '*.txt')):
+
+                accession_in_file = os.path.splitext(os.path.split(fname)[1])[0]
+
+                try:
+
+                    try:
+                        accession = unique_id_to_accession_dict[accession_in_file]
+                    except KeyError:
+                        print('Expected all biocyc IDs to be in the biocyc => accession mapping! %s is not.'
+                              % accession_in_file)
+                        raise
+
+                    if accession not in variant_effect_predictor_genes:
+                        continue
+
+                    if accession not in accession_to_gene_id:
+                        print('unknown gene accession', accession)
+                        continue
+
+                    demask_tuples = parse_demask_file(accession_to_gene_id[accession],
+                                                     accession)
+
+                    assert len(demask_tuples) > 0
+
+                    psycopg2.extras.execute_values(cur,
+                                                   sql,
+                                                   demask_tuples,
+                                                   page_size=10000)
+                except Exception as e:
+                    print('Error when processing %s: %s; skipping' % (accession_in_file, e))
+                    continue
 
 
 def parse_fasta(filename):
@@ -457,5 +508,24 @@ def parse_snap2_file(gene_id, accession, filename, score_threshold=0.0):
                 continue
             else:
                 output_tuples.append((gene_id, position, wt_aa, candidate_replacement_aa, score, 'SNAP2'))
+
+    return output_tuples
+
+
+def parse_demask_file(gene_id, filename) -> List[Tuple[str, ...]]:
+
+    output_tuples = []
+
+    with open(filename) as f:
+        header = {x: k for k, x in enumerate(f.readline().strip().split('\t'))}
+        for line in f:
+            tokens = line.strip().split('\t')
+
+            position = tokens[header['position']]
+            wt_aa = tokens[header['WT']]
+            mut_aa = tokens[header['var']]
+            score = tokens[header['score']]
+
+            output_tuples.append((gene_id, position, wt_aa, mut_aa, score, 'DeMaSk'))
 
     return output_tuples

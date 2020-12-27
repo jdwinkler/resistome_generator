@@ -1,0 +1,1 @@
+Location to place DeMaSk folders (by strain).
