@@ -108,9 +108,9 @@ tested so you may wish to look at more detailed datasets.
 #### Protein Change Effect Prediction Inputs
 
 SNAP2 and INPS are used to predict the effect of amino acid substitutions on protein function. These inputs were provided 
-by external collaborators but are too large to distribute in this repository. However, they are not required to build 
-the database itself. Please contact the Resistome maintainer (see Help! below) if you want to obtain an archive of 
-these files. Other variant effect predictors may be added over time.
+by external collaborators but are too large to distribute in this repository. You can download the original SNAP2 
+datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
+for the strains currently represented in the resistome.
 
 #### RegulonDB Extraction.
 
