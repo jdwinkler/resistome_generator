@@ -415,7 +415,7 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
     build_mutational_prediction_table(cur=cur, strain_to_process=strain,
                                       unique_id_to_accession_dict=protein_id_to_locus,
                                       accession_to_gene_id=accession_to_gene_id,
-                                      methods={'inps', 'snap2'},
+                                      methods={'inps', 'snap2', 'demask'},
                                       variant_effect_predictor_genes=SNAP2_GENES)
 
     go_terms = get_go_terms([(x[0][0], x[0][1]) for x in gene_features])
