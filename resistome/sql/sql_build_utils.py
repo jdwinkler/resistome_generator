@@ -286,6 +286,18 @@ def build_mutational_prediction_table(cur,
     columns = ['gene_id', 'position', 'wt_aa', 'mutant_aa', 'score', 'method']
 
 
+    if not os.path.exists(os.path.join(constants.INPUT_DIR, 'protein_predictions', 'biocyc_to_accession_map.txt')):
+        raise AssertionError('Missing mapping file-run inputs/protein_predictions/match_seq.py to generate.')
+
+    biocyc_to_accession = dict()
+    with open(os.path.join(constants.INPUT_DIR, 'protein_predictions', 'biocyc_to_accession_map.txt')) as f:
+        for line in f:
+            tokens = line.strip().split('\t')
+            biocyc_id = tokens[1]
+            # globally unique
+            accession = tokens[2]
+            biocyc_to_accession[biocyc_id] = accession
+
     if 'inps' in methods:
 
         inps_protein_data = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'inps.pred.txt')
@@ -343,17 +355,12 @@ def build_mutational_prediction_table(cur,
 
                     accession_in_file = list(fasta.keys())[0]
 
-                    if accession_in_file in unique_id_to_accession_dict:
-                        accession_to_use = accession_in_file
-                    elif accession_in_file.split('-')[0] in unique_id_to_accession_dict:
-                        accession_to_use = accession_in_file.split('-')[0]
-                    else:
-                        continue
-
-                    if isinstance(unique_id_to_accession_dict[accession_to_use], tuple):
-                        accession = unique_id_to_accession_dict[accession_to_use][0]
-                    else:
-                        accession = unique_id_to_accession_dict[accession_to_use]
+                    try:
+                        accession = biocyc_to_accession[accession_in_file]
+                    except KeyError:
+                        print('Expected all biocyc IDs to be in the biocyc => accession mapping! %s is not.'
+                              % accession_in_file)
+                        raise
 
                     if accession not in snap2_genes_to_process:
                         continue
