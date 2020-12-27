@@ -197,15 +197,17 @@ def insert_uniprot_data(cur, schema, columns, uniprot_dict, uniprot_to_accession
 
         accession = uniprot_to_accession[uniprot_id]
 
+        uniprot_tuples = []
+        sql = prepare_tuple_style_sql_query('uniprot', schema, columns)
         for (region, start, stop, note) in uniprot_dict[uniprot_id]:
 
-            sql = prepare_sql_query('uniprot', schema, columns, ['%s'] * len(columns))
-
             try:
-                cur.execute(sql, (accession_to_gene_id[accession],
-                                  region, start - 1 if isinstance(start, int) else start, stop, note))
+                uniprot_tuples.append((accession_to_gene_id[accession],
+                                       region, start - 1 if isinstance(start, int) else start, stop, note))
             except:
                 raise
+
+        psycopg2.extras.execute_values(cur, sql, uniprot_tuples, page_size=2000)
 
 
 def insert_regulon_db_features(accession_to_gene_id, database_cursor, schema, strain_id, strain_objects=None):

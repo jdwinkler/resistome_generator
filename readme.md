@@ -112,7 +112,7 @@ by external collaborators but are too large to distribute in this repository. Yo
 datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
 for the strains currently represented in the resistome.
 
-#### RegulonDB Extraction.
+#### RegulonDB Extraction
 
 Currently, regulatory interactions are extracted from the provided NCBI databases and 
 [RegulonDB](http://regulondb.ccg.unam.mx/). See [the README](inputs/regulondb/readme.md) for more information. 
