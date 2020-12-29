@@ -469,7 +469,7 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
     for locus_tag, seq in protein_dict.items():
         aa_tuples.append((accession_to_gene_id[locus_tag.upper()], SPECIES_SCHEMA['aa']))
 
-    psycopg2.extras.execute_values(cur, sql, nt_tuples, page_size=2000)
+    psycopg2.extras.execute_values(cur, sql, aa_tuples, page_size=2000)
 
     if len(uniprot_to_annotations.keys()) > 0:
         insert_uniprot_data(cur=cur, schema=strain, columns=SPECIES_SCHEMA['uniprot'],

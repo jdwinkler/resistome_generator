@@ -165,8 +165,8 @@ if __name__ == '__main__':
 
     cur = connect.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     errors, count = validate_mutation_data(cur)
-    #
-    # for x in errors:
-    #     print(x)
+
+    for x in errors:
+        print(x)
 
     print('Number of errors total: %i/%i' % (len(errors), count))
