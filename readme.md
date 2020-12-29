@@ -107,10 +107,20 @@ tested so you may wish to look at more detailed datasets.
 
 #### Protein Change Effect Prediction Inputs
 
-SNAP2 and INPS are used to predict the effect of amino acid substitutions on protein function. These inputs were provided 
+SNAP2, INPS, and DeMaSk are used to predict the effect of amino acid substitutions on protein function. These inputs were provided 
 by external collaborators but are too large to distribute in this repository. You can download the original SNAP2 
 datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
-for the strains currently represented in the resistome.
+for the strains currently represented in the Resistome. DeMaSk predictions for all strains can be found 
+[here](10.5281/zenodo.4399936).
+
+Citations:
+
+* SNAP2: Better prediction of functional effects for sequence variants", BMC Genomics (2015) 
+[DOI](10.1093/bioinformatics/btw192)
+* INPS: INPS-MD: a web server to predict stability of protein variants from sequence and structure, Bioinformatics 
+(2016) [DOI](10.1186/1471-2164-16-S8-S1)
+* DeMaSk: DeMaSk: a deep mutational scanning substitution matrix and its use for variant impact prediction, 
+Binformatics (2020) [DOI](10.1093/bioinformatics/btaa1030)
 
 #### RegulonDB Extraction
 
