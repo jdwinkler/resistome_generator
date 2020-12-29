@@ -528,6 +528,6 @@ def parse_demask_file(gene_id, filename) -> List[Tuple[str, ...]]:
             mut_aa = tokens[header['var']]
             score = tokens[header['score']]
 
-            output_tuples.append((gene_id, position, wt_aa, mut_aa, score, 'DEMASK'))
+            output_tuples.append((gene_id, str(int(position) - 1), wt_aa, mut_aa, score, 'DEMASK'))
 
     return output_tuples

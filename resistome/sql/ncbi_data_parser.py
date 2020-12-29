@@ -467,7 +467,7 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
     aa_tuples = []
     sql = prepare_tuple_style_sql_query('aa_sequences', strain, SPECIES_SCHEMA['aa'])
     for locus_tag, seq in protein_dict.items():
-        aa_tuples.append((accession_to_gene_id[locus_tag.upper()], SPECIES_SCHEMA['aa']))
+        aa_tuples.append((accession_to_gene_id[locus_tag.upper()], seq))
 
     psycopg2.extras.execute_values(cur, sql, aa_tuples, page_size=2000)
 
