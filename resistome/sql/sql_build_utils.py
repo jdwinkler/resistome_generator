@@ -287,6 +287,8 @@ def build_mutational_prediction_table(cur,
     :return:
     """
 
+    methods = {x.upper() for x in methods}
+
     columns = ['gene_id', 'position', 'wt_aa', 'mutant_aa', 'score', 'method']
 
     if not os.path.exists(os.path.join(constants.INPUT_DIR, 'protein_predictions', 'biocyc_to_accession_map.txt')):
@@ -301,7 +303,7 @@ def build_mutational_prediction_table(cur,
             accession = tokens[2]
             biocyc_to_accession[biocyc_id] = accession
 
-    if 'inps' in methods:
+    if 'INPS' in methods:
 
         inps_protein_data = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'inps.pred.txt')
 
@@ -326,7 +328,7 @@ def build_mutational_prediction_table(cur,
                 if gene in accession_to_gene_id:
                     cur.execute(sql, (accession_to_gene_id[gene], position, wt_aa, mut_aa, score, 'INPS'))
 
-    if 'snap2' in methods:
+    if 'SNAP2' in methods:
 
         if len(variant_effect_predictor_genes) == 0:
             raise AssertionError('Given the size of the SNAP2 dataset, you need to specify which genes you'
@@ -358,12 +360,10 @@ def build_mutational_prediction_table(cur,
 
                     accession_in_file = list(fasta.keys())[0]
 
-                    try:
-                        accession = biocyc_to_accession[accession_in_file]
-                    except KeyError:
-                        print('Expected all biocyc IDs to be in the biocyc => accession mapping! %s is not.'
-                              % accession_in_file)
-                        raise
+                    if accession_in_file not in biocyc_to_accession:
+                        continue
+
+                    accession = biocyc_to_accession[accession_in_file]
 
                     if accession not in variant_effect_predictor_genes:
                         continue
@@ -395,7 +395,7 @@ def build_mutational_prediction_table(cur,
 
         demask_dir = os.path.join(constants.INPUT_DIR, 'protein_predictions', 'demask')
 
-        target_directory = os.path.join(demask_dir, strain_to_process.upper())
+        target_directory = os.path.join(demask_dir, strain_to_process.lower())
 
         if not os.path.exists(target_directory):
             print('Did not find DeMaSk directory for strain, skipping: %s' % strain_to_process)
@@ -427,7 +427,7 @@ def build_mutational_prediction_table(cur,
                         continue
 
                     demask_tuples = parse_demask_file(accession_to_gene_id[accession],
-                                                     accession)
+                                                      fname)
 
                     assert len(demask_tuples) > 0
 
@@ -523,11 +523,11 @@ def parse_demask_file(gene_id, filename) -> List[Tuple[str, ...]]:
         for line in f:
             tokens = line.strip().split('\t')
 
-            position = tokens[header['position']]
+            position = tokens[header['pos']]
             wt_aa = tokens[header['WT']]
             mut_aa = tokens[header['var']]
             score = tokens[header['score']]
 
-            output_tuples.append((gene_id, position, wt_aa, mut_aa, score, 'DeMaSk'))
+            output_tuples.append((gene_id, position, wt_aa, mut_aa, score, 'DEMASK'))
 
     return output_tuples
