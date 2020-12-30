@@ -345,7 +345,7 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
     # this is the K-12 protein mapping used to identify extra synonyms for E. coli genes
     proteome_mapping = fetch_target_file(os.path.join(constants.INPUT_DIR, 'biocyc', 'generic'),
-                                         'UP000000318.tab')
+                                         'UP000000625.tab')
 
     # get xrefs to enable indexing other database data
     uniprot_cross_refs, ecocyc_to_accession = extract_xrefs_from_genbank(genbank)
