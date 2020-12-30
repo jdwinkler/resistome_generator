@@ -514,6 +514,17 @@ def prepare_final_output(entry_json_tuples: List[Tuple[List[str], Dict[str, str]
             else:
                 new_annotation_dict[x] = y
 
+        # BUGFIX: shift start positions by 1 bp to account for zero indexing.
+        try:
+            start = row[-2]
+            row = list(row)
+            row[-2] = str(int(start) - 1)
+            row = tuple(row)
+        except ValueError:
+            print('Expected the second to last entry in row to be an integer (start position); has the extraction '
+                  'format for RegulonDB changed?')
+            raise
+
         row = (strain_id, ) + row + (json.dumps(new_annotation_dict), 'regulondb')
 
         try:
@@ -693,4 +704,4 @@ def extract_mg1655_genome_features(strain_id: int):
 
 
 if __name__ == '__main__':
-    extract_mg1655_genome_features()
+    extract_mg1655_genome_features(strain_id=1)

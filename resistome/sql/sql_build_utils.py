@@ -174,7 +174,7 @@ def parse_uniprot(file_path):
             tokens = line.strip().split('\t')
             uniprot_id = tokens[0]
             entry_type = tokens[2]
-            start = tokens[3]
+            start = str(int(tokens[3]) - 1)
             stop = tokens[4]
 
             info = tokens[-1].split(';')
