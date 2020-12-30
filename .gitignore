@@ -12,7 +12,7 @@ neural_net_models.rar
 *Sequence-Specific Gene Names_DB.txt
 *Species-Specific Gene Names_DB.txt
 ignore/
-
+*.tar.gz
 !*readme.md
 
 !output/.gitignore 

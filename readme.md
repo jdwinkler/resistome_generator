@@ -107,12 +107,25 @@ tested so you may wish to look at more detailed datasets.
 
 #### Protein Change Effect Prediction Inputs
 
-SNAP2 and INPS are used to predict the effect of amino acid substitutions on protein function. These inputs were provided 
-by external collaborators but are too large to distribute in this repository. You can download the original SNAP2 
-datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
-for the strains currently represented in the resistome.
+SNAP2, INPS, and DeMaSk are used to predict the effect of amino acid substitutions on protein function. These inputs 
+were provided by external collaborators but are too large to distribute in this repository. You can download the original 
+SNAP2 datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
+for the strains currently represented in the Resistome. DeMaSk predictions for all strains can be found 
+[here](10.5281/zenodo.4399936). See [the README](inputs/protein_stability/readme.md) for more details.
 
-#### RegulonDB Extraction.
+Once (if) AlphaFold2 becomes generally available, it may be possible to include assessments of structural impacts 
+directly.
+
+Citations:
+
+* SNAP2: Better prediction of functional effects for sequence variants", BMC Genomics (2015) 
+[DOI](10.1093/bioinformatics/btw192)
+* INPS: INPS-MD: a web server to predict stability of protein variants from sequence and structure, Bioinformatics 
+(2016) [DOI](10.1186/1471-2164-16-S8-S1)
+* DeMaSk: DeMaSk: a deep mutational scanning substitution matrix and its use for variant impact prediction, 
+Binformatics (2020) [DOI](10.1093/bioinformatics/btaa1030)
+
+#### RegulonDB Extraction
 
 Currently, regulatory interactions are extracted from the provided NCBI databases and 
 [RegulonDB](http://regulondb.ccg.unam.mx/). See [the README](inputs/regulondb/readme.md) for more information. 
@@ -212,18 +225,10 @@ ACS Synthetic Biology (2016) [DOI](https://doi.org/10.1021/acssynbio.6b00150).
 
 ### License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions 
-of the Software. Academic works incorporating this Software will also cite the Software publications. 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+This work is licensed under CC BY-NC 4.0: see [this webpage](https://creativecommons.org/licenses/by-nc/4.0/) 
+for additional information. RegulonDB has its own separate license and can only be used for 
+academic/non-commercial research. Please see [here](http://regulondb.ccg.unam.mx/menu/download/full_version/terms_and_conditions.jsp) 
+for the full license terms.
 
 
 

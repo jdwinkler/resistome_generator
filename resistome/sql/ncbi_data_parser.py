@@ -23,6 +23,18 @@ log = logging.getLogger(__name__)
 
 def fetch_target_file(target_directory: str, name_filter: str) -> str:
 
+    """
+
+    Extracts files from the target directory matching the provided name filter. wildcards are automatically
+    inserted before and after the filter.
+
+    A ValueError is thrown if too many files are found, and an AssertionError if no files are found.
+
+    :param target_directory:
+    :param name_filter:
+    :return:
+    """
+
     files_found = []
     for filepath in glob.glob(os.path.join(target_directory, '*' + name_filter + '*')):
         files_found.append(filepath)
@@ -30,10 +42,32 @@ def fetch_target_file(target_directory: str, name_filter: str) -> str:
     if len(files_found) > 1:
         raise ValueError('Too many files found! %s' % files_found)
 
-    return files_found[0]
+    try:
+        return files_found[0]
+    except IndexError:
+        raise AssertionError('Did not find any files matching the requested filter (%s) in %s'
+                             % (name_filter, target_directory))
 
 
 def extract_synonyms_from_genbank(genbank_file: str, proteome: str) -> Dict[str, Set[str]]:
+
+    """
+
+    Extracts extra synonyms from Genbank files. Depending on the format, this function will:
+
+    Map synonyms to gene locus tags (accessions) or formal genes. Locus tags are used if available.
+
+    Synonyms are found in the following fields:
+        notes
+        product
+        gene
+
+    And in the Uniprot tab file for the K-12 proteome. The actual gene synonym field is extracted elsewhere.
+
+    :param genbank_file:
+    :param proteome:
+    :return:
+    """
 
     synonyms = defaultdict(set)
     for record in Bio.SeqIO.parse(open(genbank_file), format='genbank'):
@@ -48,11 +82,13 @@ def extract_synonyms_from_genbank(genbank_file: str, proteome: str) -> Dict[str,
                 locus_tag = feature.qualifiers['gene'][0]
 
             if 'gene' in feature.qualifiers and 'ins' in feature.qualifiers['gene'][0]:
+                # get proper insertion element name
                 if 'note' in feature.qualifiers and 'ins' in feature.qualifiers['note'][0] and ';' not in \
                         feature.qualifiers['note'][0]:
                     synonyms[locus_tag].add(feature.qualifiers['note'][0])
             if 'note' in feature.qualifiers and ':' in feature.qualifiers['note'][0] and 'similar to' not in \
                     feature.qualifiers['note'][0]:
+                # get JW, ECK, or B numbers
                 notes = feature.qualifiers['note'][0].split(';')
                 for token in notes:
                     if 'ECK' in token or 'JW' in token or 'b' in token and 'ins' not in locus_tag:
@@ -63,6 +99,7 @@ def extract_synonyms_from_genbank(genbank_file: str, proteome: str) -> Dict[str,
             if 'note' in feature.qualifiers and (
                     'similar to' in feature.qualifiers['note'][0] or 'synonym' in feature.qualifiers['note'][0]):
                 # also fuck you
+                # get implicitly mapped tags
                 for token in feature.qualifiers['note'][0].split('; '):
                     if ('similar to' in token or 'synonym' in token) and 'b' in token and str.isnumeric(
                             token[token.find('b') + 1]):
@@ -71,6 +108,7 @@ def extract_synonyms_from_genbank(genbank_file: str, proteome: str) -> Dict[str,
                             bnumber = bnumber[bnumber.find('(') + 1:bnumber.find(')')]
                         synonyms[locus_tag].add(bnumber)
             if 'product' in feature.qualifiers:
+                # extract protein names
                 product_string = feature.qualifiers['product'][0].split(' ')
                 gene_name = None
                 if len(product_string[-1]) == 4:
@@ -99,10 +137,12 @@ def extract_synonyms_from_genbank(genbank_file: str, proteome: str) -> Dict[str,
                 strand = '+'
             else:
                 strand = '-'
+            # also add exact location mapping; +1 to start to compensate for zero-indexing
             synonyms[(str(int(feature.location.start + 1)), str(int(feature.location.end)), strand)] = fixed_syns
 
     if proteome is not None:
         with open(proteome) as f:
+            # map uniprot standard names
             header = {x: k for k, x in enumerate(f.readline().strip().split('\t'))}
             for line in f:
                 tokens = line.strip().split('\t')
@@ -265,6 +305,17 @@ def get_go_terms(gene_accession_tuples: List[Tuple[str, str]], go_file = None):
 
 def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: str):
 
+    """
+
+    Handles the main parsing for NCBI and NCBI adjacent files.
+
+    :param cur:
+    :param source_data:
+    :param species:
+    :param strain:
+    :return:
+    """
+
     strain_id = insert_strain(cur, species, strain)
 
     # TODO parse feature table (gff?)
@@ -273,7 +324,8 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
     try:
         genome = fetch_target_file(source_data, 'v1_genomic.fna')
-    except IndexError:
+    except AssertionError:
+        # v2 is sometimes used by NCBI
         genome = fetch_target_file(source_data, 'v2_genomic.fna')
 
     cds_sequences = fetch_target_file(source_data, 'cds_from_genomic')
@@ -287,29 +339,40 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
         # RefSeq has the accession, Genbank has the mappings...
         # why?????????????????????????????????????????????????????????????????
         # technology was a mistake.
+        # need to special case this issue.
         genbank = fetch_target_file(source_data, 'GCF_000010245.2_ASM1024v1_genomic.gbff')
         gca_mapping = fetch_target_file(source_data, 'GCA_000010245.1_ASM1024v1_genomic.gbff')
 
+    # this is the K-12 protein mapping used to identify extra synonyms for E. coli genes
     proteome_mapping = fetch_target_file(os.path.join(constants.INPUT_DIR, 'biocyc', 'generic'),
                                          'UP000000318.tab')
 
+    # get xrefs to enable indexing other database data
     uniprot_cross_refs, ecocyc_to_accession = extract_xrefs_from_genbank(genbank)
 
     if len(uniprot_cross_refs.keys()) > 0:
+        # if you have any uniprot refs, we can use this data from uniprot to associate your genes
+        # with uniprot protein annotations.
+        # granted, we could probably get gffs for ech organism instead...
         uniprot_to_annotations = parse_uniprot(os.path.join(constants.INPUT_DIR, 'biocyc', 'generic',
                                                             'uniprot-proteome_UP000000625.gff'))
     else:
         uniprot_to_annotations = dict()
 
     if gca_mapping is not None:
+        # pull out extra IDs for W3110
         result = extract_synonyms_from_genbank(gca_mapping, proteome_mapping)
     else:
+        # all other cases
         result = dict()
 
+    # parses the feature table to get positions for all genes
+    # these tuples are directly uploaded into the db later
     gene_features = parse_ncbi_feature_file(feature_file, genbank, proteome_mapping,
                                             additional_mappings=result)
 
     genome_dict = dict()
+    # this is fine for multi part genomes.
     for record in Bio.SeqIO.parse(open(genome), format='fasta'):
         genome_dict[record.id] = str(record.seq)
 
@@ -324,13 +387,14 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
         for token in tokens:
             if 'locus_tag' in token:
                 target_token = token
+        # assert every CDS has a unique acccesion
         assert target_token is not None and 'locus_tag' in target_token, target_token
         locus_tag = target_token.replace('[', '').replace(']', '').split('=')[1].upper()
 
         nt_seq = str(record.seq)
         cds_dict[locus_tag] = nt_seq
         if 'pseudo=true' not in description:
-
+            # not a pseudogene, get protein ID
             target_token = None
             for token in tokens:
                 if 'protein_id' in token:
@@ -341,6 +405,7 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
     for record in Bio.SeqIO.parse(open(rna_sequences), format='fasta'):
 
+        # same thing but for genomic RNA
         description = record.description
         tokens = description.split(' ')
         target_token = None
@@ -353,7 +418,8 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
         cds_dict[locus_tag.upper()] = nt_seq
 
     for record in Bio.SeqIO.parse(open(protein_sequences), format='fasta'):
-
+        # prot sequences.
+        # note that the protein ids are used later to associate DeMaSk output to the original gene locus.
         locus_tag = protein_id_to_locus[record.id]
         protein_dict[locus_tag.upper()] = str(record.seq)
 
@@ -366,33 +432,44 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
     # should do this in batch but I don't really care...
     accession_to_gene_id = dict()
+    SQL = prepare_tuple_style_sql_query('genes', strain, SPECIES_SCHEMA['genes']) + ' RETURNING gene_id, accession'
+    gene_tuples = []
+    for (gene_feature, pos_feature) in gene_features:
+        # TODO optimize with batch upload
+        # uploads all genes, locations
+        gene_tuples.append((strain_id,) + gene_feature)
+
+    results = psycopg2.extras.execute_values(cur, SQL, argslist=gene_tuples, page_size=4000, fetch=True)
+    for result in results:
+        accession_to_gene_id[result['accession'].upper()] = result['gene_id']
+
+    pos_tuples = []
     for (gene_feature, pos_feature) in gene_features:
 
-        SQL = prepare_sql_query('genes', strain, SPECIES_SCHEMA['genes'],
-                                (strain_id,) + gene_feature) + ' RETURNING gene_id'
-        try:
-            cur.execute(SQL, (strain_id,) + gene_feature)
-            gene_id = cur.fetchone()['gene_id']
-            accession_to_gene_id[gene_feature[0].upper()] = gene_id
-            cur.execute(
-                'INSERT INTO gene_locations (gene_id, start, stop, direction) VALUES (%s, %s, %s, %s)',
-                (gene_id,) + pos_feature)
-        except:
-            raise
+        gene_id = accession_to_gene_id[gene_feature[0].upper()]
+        pos_tuples.append((gene_id,) + pos_feature)
+
+    psycopg2.extras.execute_values(cur,
+                                   sql='INSERT INTO gene_locations (gene_id, start, stop, direction) VALUES %s',
+                                   argslist=pos_tuples, page_size=4000)
 
     insert_genome_sequences(cur=cur, schema=strain, columns=SPECIES_SCHEMA['genome'],
                             strain_id=strain_id,
                             genome_object=genome_dict)
 
+    nt_tuples = []
+    sql = prepare_tuple_style_sql_query('nt_sequences', strain, SPECIES_SCHEMA['dna'])
     for locus_tag, seq in cds_dict.items():
-        insert_sequence_data(cur=cur, schema=strain, columns=SPECIES_SCHEMA['dna'],
-                             sequence_table='nt_sequences',
-                             gene_id=accession_to_gene_id[locus_tag.upper()], sequence=seq)
+        nt_tuples.append((accession_to_gene_id[locus_tag.upper()], seq))
 
+    psycopg2.extras.execute_values(cur, sql, nt_tuples, page_size=2000)
+
+    aa_tuples = []
+    sql = prepare_tuple_style_sql_query('aa_sequences', strain, SPECIES_SCHEMA['aa'])
     for locus_tag, seq in protein_dict.items():
-        insert_sequence_data(cur=cur, schema=strain, columns=SPECIES_SCHEMA['aa'],
-                             sequence_table='aa_sequences',
-                             gene_id=accession_to_gene_id[locus_tag.upper()], sequence=seq)
+        aa_tuples.append((accession_to_gene_id[locus_tag.upper()], seq))
+
+    psycopg2.extras.execute_values(cur, sql, aa_tuples, page_size=2000)
 
     if len(uniprot_to_annotations.keys()) > 0:
         insert_uniprot_data(cur=cur, schema=strain, columns=SPECIES_SCHEMA['uniprot'],
@@ -401,6 +478,9 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
     if strain == 'mg1655':
         # hard-coding this since I don't know another way to do it...
+        # insert the genomic annotations from RegulonDB, including the regulatory networks.
+        # these are parsed in the imported functions from the regulondb parser. Source files are included in the
+        # repo. Current version: 10.6
         insert_regulon_db_features(accession_to_gene_id=accession_to_gene_id,
                                    database_cursor=cur,
                                    schema=strain,
@@ -412,17 +492,22 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
         sql = prepare_tuple_style_sql_query('interactions', strain, SPECIES_SCHEMA['interactions'])
         psycopg2.extras.execute_values(cur, sql, argslist=regulatory_interactions, page_size=2000)
 
+    # add in predictions from these tools
+    # You can easily change this function to load data for every gene, but it is a titanic amount of data.
     build_mutational_prediction_table(cur=cur, strain_to_process=strain,
-                                      unique_id_to_accession_dict=ecocyc_to_accession,
+                                      unique_id_to_accession_dict=protein_id_to_locus,
                                       accession_to_gene_id=accession_to_gene_id,
-                                      methods={'inps', 'snap2'},
-                                      snap2_genes_to_process=SNAP2_GENES)
+                                      methods={'inps', 'snap2', 'demask'},
+                                      variant_effect_predictor_genes=SNAP2_GENES)
 
     go_terms = get_go_terms([(x[0][0], x[0][1]) for x in gene_features])
+    go_tuples = []
+    SQL = prepare_tuple_style_sql_query('go_terms', strain_id, SPECIES_SCHEMA['go_terms'])
 
     for locus_tag, go_term in go_terms:
-        SQL = prepare_sql_query('go_terms', strain_id, SPECIES_SCHEMA['go_terms'], (locus_tag, go_term))
-        cur.execute(SQL, (accession_to_gene_id[locus_tag], go_term_to_go_id[go_term]))
+        go_tuples.append((accession_to_gene_id[locus_tag], go_term_to_go_id[go_term]))
+
+    psycopg2.extras.execute_values(cur, SQL, argslist=go_tuples, page_size=2000)
 
 
 if __name__ == '__main__':

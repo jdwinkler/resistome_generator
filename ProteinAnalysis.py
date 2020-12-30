@@ -171,13 +171,15 @@ def filter_aa_tuples_for_snap2(filtered_tuples, number_of_top_genes):
     return genes_to_process
 
 
-def generate_snap2_frequently_hit_heatmaps(filtered_tuples,
-                                           genes_to_process,
-                                           sequence_dict,
-                                           force_identical_sequences=False,
-                                           force_specific_strain=False,
-                                           target_strain='mg1655',
-                                           skip_errors=False):
+def generate_vareffect_frequently_hit_heatmaps(filtered_tuples,
+                                               genes_to_process,
+                                               sequence_dict,
+                                               force_identical_sequences=False,
+                                               force_specific_strain=False,
+                                               target_strain='mg1655',
+                                               skip_errors=False,
+                                               method: str = 'SNAP2',
+                                               cmap: str = 'seismic'):
 
     """
     
@@ -268,7 +270,7 @@ def generate_snap2_frequently_hit_heatmaps(filtered_tuples,
         query_result = sql_interface.get_aa_stability_position_value(gene=gene,
                                                                      target_strain='mg1655',
                                                                      positions_wt_mut_tuples=tuples_to_query,
-                                                                     method='SNAP2',
+                                                                     method=method,
                                                                      skip_errors=skip_errors)
 
         for aa_row, row_position in zip(aa_list, range(0, len(aa_list))):
@@ -298,13 +300,13 @@ def generate_snap2_frequently_hit_heatmaps(filtered_tuples,
         glib.generate_heatmap_asymmetric(matrix=heatmap_matrix,
                                          x_names=sequence_dict[sequence_identifier],
                                          y_names=aa_list,
-                                         ylabel='SNAP2 Fitness Estimate',
+                                         ylabel='%s Fitness Estimate' % method,
                                          filename=os.path.join(constants.OUTPUT_DIR,
-                                                               gene + '_SNAP2_replacement_map.pdf'),
+                                                               gene + '_%s_replacement_map.pdf' % method),
                                          plot_color_bar=True,
                                          dim_override=((len(sequence_dict[sequence_identifier])/6,
                                                         len(aa_list)/5)),
-                                         cmap='seismic',
+                                         cmap=cmap,
                                          patches=rectangles_to_highlight,
                                          vmax=1.0,
                                          vmin=-1.0)
@@ -380,10 +382,12 @@ def run_analysis():
 
     # can also specify specific genes of interest, top 10 here just as an example essentially
     # also quite slow
-    generate_snap2_frequently_hit_heatmaps(filtered_tuples,
-                                           genes_of_interest,
-                                           seq_dict,
-                                           skip_errors=True)
+    generate_vareffect_frequently_hit_heatmaps(filtered_tuples,
+                                               genes_of_interest,
+                                               seq_dict,
+                                               skip_errors=True,
+                                               method='DEMASK',
+                                               cmap='seismic')
 
     glib.histogram(stability_values, 'ddG','Count', os.path.join(constants.OUTPUT_DIR, 'Stability Histogram.pdf'))
 

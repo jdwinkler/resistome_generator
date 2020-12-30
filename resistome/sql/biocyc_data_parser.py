@@ -940,7 +940,7 @@ def main(database_cursor: psycopg2._psycopg.cursor,
                                       unique_id_to_accession_dict=unique_id_to_accession,
                                       accession_to_gene_id=accession_to_gene_id,
                                       methods={'inps', 'snap2'},
-                                      snap2_genes_to_process=SNAP2_GENES)
+                                      variant_effect_predictor_genes=SNAP2_GENES)
 
     print('Finished parsing/uploading provided biocyc database: %s' % strain_of_interest)
 
