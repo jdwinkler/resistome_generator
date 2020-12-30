@@ -492,6 +492,35 @@ def handle_promoter_extraction(promoter_path):
     return output
 
 
+def handle_promoter_features(promoter_feature_path):
+
+    promoters_10_sites = generic_file_parser(promoter_feature_path,
+                                          ['PROMOTER_FEATURE_ID', 'BOX_10_LEFT', 'BOX_10_RIGHT'],
+                                          ['BOX_10_SEQUENCE', 'PROMOTER_ID'],
+                                          tuple_placeholder=(1, 'promoter_-10_box'))
+
+    promoters_35_sites = generic_file_parser(promoter_feature_path,
+                                          ['PROMOTER_FEATURE_ID', 'BOX_35_LEFT', 'BOX_35_RIGHT'],
+                                          ['BOX_35_SEQUENCE', 'PROMOTER_ID'],
+                                          tuple_placeholder=(1, 'promoter_-35_box'))
+
+    combined_features = promoters_10_sites + promoters_35_sites
+
+    output = []
+    for (row, row_dict) in combined_features:
+        if row[-2] == '' or row[-1] == '':
+            continue
+
+        new_id = row[0] + '_10' if 'BOX_10_SEQUENCE' in row_dict else row[0] + '_35'
+        row = list(row)
+        row[0] = new_id
+        row = tuple(row)
+
+        output.append((row, row_dict))
+
+    return output
+
+
 def prepare_final_output(entry_json_tuples: List[Tuple[List[str], Dict[str, str]]], strain_id: int):
 
     output = []
@@ -559,6 +588,8 @@ def extract_mg1655_genome_features(strain_id: int):
     sd_boxes = os.path.join(REGULON_DB_DIR, 'shine_dalgarno.txt')
     # promoters
     promoters = os.path.join(REGULON_DB_DIR, 'promoter.txt')
+    # promoter properties
+    promoter_features = os.path.join(REGULON_DB_DIR, 'promoter_feature.txt')
     # sRNAs
     srnas_file = os.path.join(REGULON_DB_DIR, 'srna_interaction.txt')
     # operons, TSSs, etc
@@ -618,6 +649,8 @@ def extract_mg1655_genome_features(strain_id: int):
                                          tuple_placeholder=(1, 'shine_dalgarno'))
 
     promoter_sites = handle_promoter_extraction(promoters)
+
+    promoter_feature_tuples = handle_promoter_features(promoter_features)
 
     tss_entries = generic_file_parser(object_props,
                                       ['OBJECT_ID', 'OBJECT_POSLEFT', 'OBJECT_POSRIGHT'],
@@ -690,6 +723,7 @@ def extract_mg1655_genome_features(strain_id: int):
     combined_output.extend(riboswitch_tuples)
     combined_output.extend(terminator_tuples)
     combined_output.extend(anti_terminator_tuples)
+    combined_output.extend(promoter_feature_tuples)
 
     insert_ready_output = prepare_final_output(combined_output, strain_id)
 

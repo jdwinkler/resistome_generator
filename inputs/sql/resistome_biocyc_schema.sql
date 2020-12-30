@@ -204,4 +204,3 @@ create index IF NOT EXISTS gfa_gene_idx on genomic_feature_association (gene_id)
 create index IF NOT EXISTS gfa_feature_idx on genomic_feature_association (feature_id);
 
 
-
