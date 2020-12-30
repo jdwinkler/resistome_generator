@@ -111,7 +111,7 @@ SNAP2, INPS, and DeMaSk are used to predict the effect of amino acid substitutio
 were provided by external collaborators but are too large to distribute in this repository. You can download the original 
 SNAP2 datasets generated in 2016 [here](https://zenodo.org/record/4394374); a future update will re-run these analyses 
 for the strains currently represented in the Resistome. DeMaSk predictions for all strains can be found 
-[here](10.5281/zenodo.4399936). See [the README](inputs/protein_stability/readme.md) for more details.
+[here](https://zenodo.org/record/4399936). See [the README](inputs/protein_stability/readme.md) for more details.
 
 Once (if) AlphaFold2 becomes generally available, it may be possible to include assessments of structural impacts 
 directly.
