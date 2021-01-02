@@ -128,7 +128,7 @@ Mutation	mrna_secondarystructure	Secondary structure altered
 Mutation	sensor	Sensor
 Mutation	integrated	Chromosomal integration
 Mutation	terminated	Terminated
-Mutation    inferred_nuc_snps   Inferred nucleotide changes
+Mutation	inferred_nuc_snps	Inferred nucleotide changes
 Original	yes	Yes
 Original	no	No
 paper	Title	Title
