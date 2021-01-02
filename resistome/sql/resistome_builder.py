@@ -1,11 +1,13 @@
-from resistome.utils import database_utils
-from resistome.sql.validator import validate_mutation_data
 import os
+
 import psycopg2
 import psycopg2.extras
+
 from resistome import constants
 from resistome.sql.sql_build_utils import prepare_sql_query, RESISTOME_SCHEMA, prepare_tuple_style_sql_query
-from functools import lru_cache
+from resistome.sql.validator import validate_mutation_data
+from resistome.sql.aa_nucleotide_inference import infer_residue_nucleotide_changes
+from resistome.utils import database_utils
 
 __author__ = 'jdwinkler'
 
@@ -1330,6 +1332,14 @@ def main(cur, add_resistome_go_metabolite_tables=False):
           % (len(invalid_annotation_entries), count, (1.0 - len(invalid_annotation_entries)/count) * 100.0))
     print('Finished loading data into resistome SQL schema. These entries are marked as VALID = FALSE in the '
           'resistome.annotations table. All other entries appear to be valid.')
+
+    print('Adding inferred nucleotide changes from AA changes...')
+
+    tuples_to_insert = infer_residue_nucleotide_changes(cursor=cur)
+    sql = prepare_tuple_style_sql_query('annotations', 'resistome', columns=RESISTOME_SCHEMA['annotations'])
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=tuples_to_insert, page_size=10000)
+
+    print('Finished adding inferred AA => nucleotide changes.')
 
 
 if __name__ == '__main__':
