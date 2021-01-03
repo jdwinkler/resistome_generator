@@ -169,3 +169,7 @@ def infer_residue_nucleotide_changes(cursor):
                                  True, None))
 
     return tuples_to_insert
+
+
+if __name__ == '__main__':
+    pass
