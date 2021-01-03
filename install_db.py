@@ -88,6 +88,8 @@ if __name__ == '__main__':
             print('Failed when generating metabolite tables!')
             raise
 
+        connect.commit()
+
         try:
             print('\nBuilding Resistome tables')
             resistome_builder.main(cursor, add_resistome_go_metabolite_tables=True)

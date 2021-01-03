@@ -14,7 +14,7 @@ from resistome.sql.sql_build_utils import SPECIES_SCHEMA, prepare_sql_query, pre
     insert_uniprot_data, \
     insert_regulon_db_features, \
     parse_essential_genes_file, \
-    build_mutational_prediction_table, SNAP2_GENES
+    build_mutational_prediction_table, SNAP2_GENES, parse_string_file
 from resistome.utils.regulondb_parser import parse_regulondb_distribution
 from typing import List, Tuple, Union, Dict, Set
 
@@ -491,6 +491,20 @@ def main(cur: psycopg2._psycopg.cursor, source_data: str, species: str, strain: 
 
         sql = prepare_tuple_style_sql_query('interactions', strain, SPECIES_SCHEMA['interactions'])
         psycopg2.extras.execute_values(cur, sql, argslist=regulatory_interactions, page_size=2000)
+
+        strings_db = os.path.join(constants.INPUT_DIR, 'interactions', '511145.protein.links.v11.0.txt.gz')
+        # the docs do not provide any guidance on select this beyond a single example where score = 0.4: medium
+        # confidence. I selected this threshold arbitrarily, so it might be too restrictive.
+        protein_edges = parse_string_file(strings_db, minimum_score=0.70)
+        upload_tuples = []
+        for (p1, p2) in protein_edges:
+            upload_tuples.append((strain_id, 'protein-protein',
+                                  p1, p2,
+                                  accession_to_gene_id[p1], accession_to_gene_id[p2],
+                                  '?',
+                                  'strings'))
+
+        psycopg2.extras.execute_values(cur, sql=sql, argslist=upload_tuples, page_size=5000)
 
     # add in predictions from these tools
     # You can easily change this function to load data for every gene, but it is a titanic amount of data.

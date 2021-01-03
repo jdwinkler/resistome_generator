@@ -466,6 +466,31 @@ def parse_fasta(filename):
     return fasta_dict
 
 
+def parse_string_file(filepath: str, minimum_score: float = 0.0) -> List[Tuple[str, ...]]:
+
+    if not os.path.exists(filepath):
+        raise AssertionError('Did not find STRINGS file: %s' % filepath)
+
+    import gzip
+    output_tuples = []
+    with gzip.open(filepath, mode='rt') as f:
+        header = {x: k for k, x in enumerate(f.readline().strip().split(' '))}
+        for line in f:
+            tokens = line.strip().split(' ')
+            # there is a score column but our DB scheme does not load it
+            # depending on the dataset you can also get type of interactions, but we also do not record that here.
+            protein1 = tokens[header['protein1']].split('.')[1].upper()
+            protein2 = tokens[header['protein2']].split('.')[1].upper()
+            score = float(tokens[header['combined_score']])/1000.0
+
+            if score < minimum_score:
+                continue
+
+            output_tuples.append((protein1, protein2))
+
+    return output_tuples
+
+
 def parse_snap2_file(gene_id, accession, filename, score_threshold=0.0):
 
     """

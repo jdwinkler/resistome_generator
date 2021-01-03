@@ -227,7 +227,7 @@ create table resistome.annotations (
 	mutation_type text not null,
 	annotation	jsonb not null,
 	--until I add in the validation code, just assume all mutations are valid.
-	valid   boolean DEFAULT TRUE,
+	valid   boolean not null,
 	valid_reason    text,
 	
 	constraint fk_gene_id foreign key (gene_id) references resistome.mutations (gene_id),

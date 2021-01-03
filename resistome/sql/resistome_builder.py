@@ -1402,13 +1402,14 @@ def main(cur, add_resistome_go_metabolite_tables=False):
                                                                                                             tags_information, ontology)
             collected_methods.extend(method_tuples)
             collected_phenotypes.extend(phenotype_tuples)
-            collected_annotations.extend(annotation_tuples)
+            for x in annotation_tuples:
+                collected_annotations.append(x + (True,))
             if len(paper_errors) > 0:
                 error_dict[title].update(paper_errors)
 
     sql = prepare_tuple_style_sql_query(schema='resistome',
                                         table='annotations',
-                                        columns=RESISTOME_SCHEMA['annotations'])
+                                        columns=RESISTOME_SCHEMA['annotations'] + ['valid'])
 
     psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=collected_annotations, page_size=50000)
 
