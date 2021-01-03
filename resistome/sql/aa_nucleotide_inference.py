@@ -157,9 +157,12 @@ def infer_residue_nucleotide_changes(cursor):
 
             grouped_updates[gene_id].extend(inferred_nuc_snps)
 
+    import json
+
     tuples_to_insert = []
     for gene_id, inferred_tuple_list in grouped_updates.items():
         # valid by definition.
-        tuples_to_insert.append((gene_id, 'inferred_nuc_snps', [list(x) for x in inferred_tuple_list], True, None))
+        tuples_to_insert.append((gene_id, 'inferred_nuc_snps', json.dumps({'inferred_nuc_snps': inferred_tuple_list}),
+                                 True, None))
 
     return tuples_to_insert
