@@ -14,13 +14,13 @@ create table resistome.term_explanation (
 
     term_id serial primary key,
 	term_type	text not null,
-	internal_name	text not null,
+	internal_name	text unique not null,
 	explanation	text not null,
 
-	constraint unique_term_pairs UNIQUE (term_type, internal_name),
-	constraint unique_internal_name UNIQUE (internal_name)
-
+	constraint unique_term_pairs UNIQUE (term_type, internal_name)
 );
+
+CREATE INDEX idx_term_unique on resistome.term_explanation (internal_name);
 
 create table resistome.phenotype_standardization (
 
@@ -35,6 +35,8 @@ create table resistome.phenotype_standardization (
 
 );
 
+CREATE INDEX ps_std_idx on resistome.phenotype_standardization (standard_name);
+
 create table resistome.phenotype_mapping (
 
     phenotype_map_id    serial primary key,
@@ -44,8 +46,6 @@ create table resistome.phenotype_mapping (
     constraint fk_standard_id FOREIGN KEY (standardized_id) REFERENCES resistome.phenotype_standardization (phenotype_id)
 
 );
-
-CREATE INDEX ps_std_idx on resistome.phenotype_standardization (standard_name);
 
 
 create table resistome.papers (
@@ -117,7 +117,10 @@ create table resistome.mutants (
 	                                 (rotation IS NULL or rotation >= 0) AND
 	                                 (initial_fitness IS NULL or initial_fitness >= 0) AND
 	                                 (final_fitness IS NULL or final_fitness >= 0) ),
-	CONSTRAINT chk_paper_mutant_name UNIQUE (paper_id, name)
+	CONSTRAINT chk_paper_mutant_name UNIQUE (paper_id, name),
+	-- make sure these match our internal nomenclature-want to enforce better standardization over time.
+	CONSTRAINT fk_vessel_type FOREIGN KEY ( vessel_type ) REFERENCES resistome.term_explanation (internal_name),
+	CONSTRAINT fk_oxygenation_type FOREIGN KEY ( oxygenation ) REFERENCES resistome.term_explanation (internal_name)
 );
 
 create index mutant_id_idx on resistome.mutants (mutant_id);

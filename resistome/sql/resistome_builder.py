@@ -1,11 +1,14 @@
-from resistome.utils import database_utils
-from resistome.sql.validator import validate_mutation_data
 import os
+
 import psycopg2
 import psycopg2.extras
+
 from resistome import constants
 from resistome.sql.sql_build_utils import prepare_sql_query, RESISTOME_SCHEMA, prepare_tuple_style_sql_query
-from functools import lru_cache
+from resistome.sql.validator import validate_mutation_data
+from resistome.sql.aa_nucleotide_inference import infer_residue_nucleotide_changes
+from resistome.utils import database_utils
+from typing import List, Collection
 
 __author__ = 'jdwinkler'
 
@@ -25,35 +28,55 @@ position_cache = dict()
 large_cache = dict()
 
 
-def fetch_gene_position(cur, original_strain, converted_strain: str, gene_name: str):
+def fetch_gene_position(cur, original_strain, converted_strain: str, gene_names: Collection[str]):
 
-    if (original_strain, converted_strain, gene_name) in position_cache:
-        return position_cache[(original_strain, converted_strain, gene_name)]
+    genes_missing = []
+
+    gene_starts = dict()
+    gene_ends = dict()
+    gene_locations = dict()
+
+    for gene_name in gene_names:
+        if (converted_strain, gene_name) not in position_cache:
+            genes_missing.append(gene_name.upper())
+        else:
+            (gene_start, gene_end, gene_location) = position_cache[(converted_strain, gene_name)]
+            gene_starts[gene_name] = gene_start
+            gene_ends[gene_name] = gene_end
+            gene_locations[gene_name] = gene_location
+
+    if len(genes_missing) == 0:
+        return gene_starts, gene_ends, gene_locations
 
     # get gene start from biocyc (#converted_strain#.genes) where converted_strain is
     # also the name of a biocyc table.
     if original_strain.lower() in constants.SPECIES_LIST or \
             constants.MAP_SPECIES_TO_REF.get(original_strain.lower(), 'Not in here!') in constants.SPECIES_LIST:
-        cur.execute('select gene_locations.start, gene_locations.stop FROM genes '
+        cur.execute('select genes.accession, gene_locations.start, gene_locations.stop FROM genes '
                     'INNER JOIN gene_locations on gene_locations.gene_id = genes.gene_id '
                     'INNER JOIN strain on strain.strain_id = genes.strain_id '
-                    'where upper(accession) = %s '
+                    'where upper(accession) = ANY(%s) '
                     'AND strain.strain = lower(%s)',
-                    (gene_name.upper(), converted_strain))
-        gene_location = cur.fetchone()
+                    (genes_missing, converted_strain))
+        for record in cur:
+            gene_starts[record['accession']] = record['start']
+            gene_ends[record['accession']] = record['stop']
+            gene_locations[record['accession']] = record
+            position_cache[(converted_strain, record['accession'])] = (record['start'], record['stop'], record)
+        for gene_name in gene_names:
+            if gene_name not in gene_starts:
+                gene_starts[gene_name] = 0
+                gene_ends[gene_name] = 0
+                gene_locations[gene_name] = None
+                position_cache[(converted_strain, gene_name)] = (0, 0, None)
     else:
-        gene_location = None
+        for gene_name in genes_missing:
+            gene_starts[gene_name] = 0
+            gene_ends[gene_name] = 0
+            gene_locations[gene_name] = None
+            position_cache[(converted_strain, gene_name)] = (0, 0, None)
 
-    if gene_location is None:
-        gene_start = 0
-        gene_end = 0
-    else:
-        gene_start = int(gene_location['start'])
-        gene_end = int(gene_location['stop'])
-
-    position_cache[(original_strain, converted_strain, gene_name)] = (gene_start, gene_end, gene_location)
-
-    return gene_start, gene_end, gene_location
+    return gene_starts, gene_ends, gene_locations
 
 
 def fetch_inbetween_genes(cursor, strain: str, accession_1: str, accession_2: str):
@@ -293,7 +316,7 @@ def error_check_mutation_entry(entry_data, mutation_types):
 
     if gene_name is None:
         passes_error_check = False
-    if ',' in gene_name or '/' in gene_name:
+    if ',' in gene_name or '/' in gene_name or ';' in gene_name:
         passes_error_check = False
     if 'Escherichia coli'.upper() not in species.upper():
         passes_error_check = False
@@ -489,9 +512,6 @@ def insert_mutant_phenotype(cur, unique_mutant_id, phenotype, type_of_phenotype,
     :return: None
     """
 
-    sql = prepare_sql_query(schema='resistome', table='phenotypes',
-                            columns=RESISTOME_SCHEMA['phenotypes'])
-
     error_phenotypes = []
 
     if phenotype not in tag_dict:
@@ -500,15 +520,15 @@ def insert_mutant_phenotype(cur, unique_mutant_id, phenotype, type_of_phenotype,
     if phenotype is None or len(phenotype) == 0:
         error_phenotypes.append('Missing phenotype?')
 
-    cur.execute(sql, (unique_mutant_id,
-                      phenotype.lower(),
-                      tag_dict.get(phenotype, phenotype).lower(),
-                      type_of_phenotype,
-                      root_dict.get(phenotype, 'X')[0],
-                      r_level,
-                      r_units))
+    phenotype_tuples = (unique_mutant_id,
+                        phenotype.lower(),
+                        tag_dict.get(phenotype, phenotype).lower(),
+                        type_of_phenotype,
+                        root_dict.get(phenotype, 'X')[0],
+                        r_level,
+                        r_units)
 
-    return error_phenotypes
+    return phenotype_tuples, error_phenotypes
 
 
 def insert_annotation(cur, unique_gene_id, annotation, json_dict):
@@ -605,7 +625,10 @@ def insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation_obj, sp
                                              accession_1=large_mutation_boundaries[0],
                                              accession_2=large_mutation_boundaries[1])
 
-    upload_tuples = []
+    mutation_tuples = []
+    gene_name_to_id = dict()
+    sql = prepare_tuple_style_sql_query(table='mutations', schema='resistome',
+                                        columns=RESISTOME_SCHEMA['mutations']) + ' RETURNING gene_id, name'
 
     for gene_name in genes_to_add:
 
@@ -622,15 +645,24 @@ def insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation_obj, sp
         if not valid_mutation_object:
             output_errors.append('Error in mutation object: %s, %s' % (str(data_tuple), str(changes)))
 
-        # get unique id to associate the annotation with the proper mutation
-        sql = insert_sql_get_id('resistome', 'mutations', RESISTOME_SCHEMA['mutations'], 'gene_id')
-        cur.execute(sql, data_tuple)
-        gene_id = cur.fetchone()['gene_id']
+        mutation_tuples.append(data_tuple)
 
-        # get gene start from biocyc (#converted_strain#.genes) where converted_strain is
-        # also the name of a biocyc table.
-        gene_start, gene_end, gene_location = fetch_gene_position(cur, original_strain, converted_strain,
-                                                                  gene_name)
+    mappings = psycopg2.extras.execute_values(cur, sql, argslist=mutation_tuples, page_size=2000, fetch=True)
+    for result in mappings:
+        gene_name_to_id[result['name']] = result['gene_id']
+
+    upload_tuples = []
+
+    gene_starts, gene_ends, gene_locations = fetch_gene_position(cur, original_strain, converted_strain,
+                                                                 genes_to_add)
+
+    for gene_name in genes_to_add:
+
+        gene_id = gene_name_to_id[gene_name.upper().replace('\'', '')]
+
+        gene_start = gene_starts[gene_name]
+        gene_end = gene_ends[gene_name]
+        gene_location = gene_locations[gene_name]
 
         proper_location_tuple = constants.get_proper_start_stop(gene_name.upper(),
                                                                 year,
@@ -727,6 +759,7 @@ def insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation_obj, sp
                             location_type = 'absolute_inferred'
                         else:
                             # should be no unhandled cases
+                            print(gene_start, gene_end)
                             raise AssertionError('Should not exist.')
                         output_tuples.append((actual_location, size, location_type))
 
@@ -779,13 +812,7 @@ def insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation_obj, sp
                 output_errors.append(('Error detected in %s: %s (%s)' % (change, str(wrapper_dict[change]),
                                                                          gene_name)))
 
-    sql = prepare_tuple_style_sql_query(schema='resistome',
-                                        table='annotations',
-                                        columns=RESISTOME_SCHEMA['annotations'])
-
-    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=upload_tuples, page_size=2000)
-
-    return output_errors
+    return upload_tuples, output_errors
 
 
 def insert_expression_data(cur, paper_id, unique_mutant_id, study_id, expression_obj, species, converted_strain):
@@ -833,13 +860,97 @@ def insert_expression_data(cur, paper_id, unique_mutant_id, study_id, expression
     if not valid_expression_object:
         errors.append('Error in expression object data: %s' % str(data_tuple))
 
-    sql = prepare_sql_query(schema='resistome', table='expressions', columns=RESISTOME_SCHEMA['expressions'])
-    cur.execute(sql, data_tuple)
-
-    return errors
+    return data_tuple, errors
 
 
-def insert_mutant(cur, year, paper_id, mutant_obj, tag_info, root_classes):
+def insert_all_mutant_tuples(cursor, paper_id, mutant_objects):
+
+    output_tuples = []
+    errors = []
+
+    for mutant_obj in mutant_objects:
+
+        mutant_name = mutant_obj.name
+        species = mutant_obj.species
+        strain = mutant_obj.strain.upper()
+
+        if strain == 'K12':
+            strain = 'K-12'
+        if strain == 'K':
+            strain = 'K-12'
+
+        # culture vessel, options listed in Term Usage.txt under ../inputs/
+        cvessel = mutant_obj.culture_vessel
+
+        # oxygenation
+        oxygen = mutant_obj.oxygenation
+        (medium, supplements) = mutant_obj.medium
+        carbon = mutant_obj.substrates
+        ph = mutant_obj.pH
+        cvolume = mutant_obj.culture_volume
+        vvolume = mutant_obj.liquid_volume
+        temperature = mutant_obj.temperature
+        rotation = mutant_obj.rpm
+        fold_imp = mutant_obj.fold_improvement
+        init_fit = mutant_obj.initial_fitness
+        final_fit = mutant_obj.final_fitness
+        fit_unit = mutant_obj.fitness_unit
+
+        # comments is a free-form text field not used for anything currently
+        comments = mutant_obj.comments
+
+        methods = mutant_obj.methods
+
+        resist_level = mutant_obj.resistance_level
+        resist_units = mutant_obj.resistance_units
+
+        sensitive_phenotypes = mutant_obj.sensitive_phenotypes
+        resistant_phenotypes = mutant_obj.resistant_phenotypes
+
+        converted_strain = constants.get_strain_converter(strain)
+
+        mutant_tuple = (paper_id,
+                        mutant_name,
+                        species,
+                        strain,
+                        converted_strain,
+                        oxygen,
+                        medium,
+                        carbon,
+                        supplements,
+                        ph,
+                        cvessel,
+                        vvolume,
+                        cvolume,
+                        temperature,
+                        rotation,
+                        fold_imp,
+                        init_fit,
+                        final_fit,
+                        fit_unit,
+                        comments)
+
+        valid_mutant_object = error_check_mutant_entry(mutant_tuple, methods)
+
+        if not valid_mutant_object:
+            errors.append('Error detected in high-level mutant object: %s, %s' % (str(mutant_tuple), str(methods)))
+
+        output_tuples.append(mutant_tuple)
+
+    sql = prepare_tuple_style_sql_query(schema='resistome',
+                                        table='mutants',
+                                        columns=RESISTOME_SCHEMA['mutants']) + ' RETURNING paper_id, name, mutant_id'
+
+    mapping = psycopg2.extras.execute_values(cur=cursor, sql=sql, argslist=output_tuples, page_size=4000,
+                                             fetch=True)
+    output_dict = dict()
+    for result in mapping:
+        output_dict[(result['paper_id'], result['name'])] = result['mutant_id']
+
+    return output_dict, errors
+
+
+def insert_mutant_dependent_data(cur, mutant_to_id, year, paper_id, mutant_obj, tag_info, root_classes):
     """
 
     Inserts a mutant record into the mutants table in the resistome. This method does the lion's share of parsing,
@@ -865,26 +976,6 @@ def insert_mutant(cur, year, paper_id, mutant_obj, tag_info, root_classes):
     if strain == 'K':
         strain = 'K-12'
 
-    # culture vessel, options listed in Term Usage.txt under ../inputs/
-    cvessel = mutant_obj.culture_vessel
-
-    # oxygenation
-    oxygen = mutant_obj.oxygenation
-    (medium, supplements) = mutant_obj.medium
-    carbon = mutant_obj.substrates
-    ph = mutant_obj.pH
-    cvolume = mutant_obj.culture_volume
-    vvolume = mutant_obj.liquid_volume
-    temperature = mutant_obj.temperature
-    rotation = mutant_obj.rpm
-    fold_imp = mutant_obj.fold_improvement
-    init_fit = mutant_obj.initial_fitness
-    final_fit = mutant_obj.final_fitness
-    fit_unit = mutant_obj.fitness_unit
-
-    # comments is a free-form text field not used for anything currently
-    comments = mutant_obj.comments
-
     methods = mutant_obj.methods
 
     resist_level = mutant_obj.resistance_level
@@ -895,35 +986,7 @@ def insert_mutant(cur, year, paper_id, mutant_obj, tag_info, root_classes):
 
     converted_strain = constants.get_strain_converter(strain)
 
-    mutant_tuple = (paper_id,
-                    mutant_name,
-                    species,
-                    strain,
-                    converted_strain,
-                    oxygen,
-                    medium,
-                    carbon,
-                    supplements,
-                    ph,
-                    cvessel,
-                    vvolume,
-                    cvolume,
-                    temperature,
-                    rotation,
-                    fold_imp,
-                    init_fit,
-                    final_fit,
-                    fit_unit,
-                    comments)
-
-    valid_mutant_object = error_check_mutant_entry(mutant_tuple, methods)
-
-    if not valid_mutant_object:
-        errors.append('Error detected in high-level mutant object: %s, %s' % (str(mutant_tuple), str(methods)))
-
-    sql = insert_sql_get_id('resistome', 'mutants', RESISTOME_SCHEMA['mutants'], 'mutant_id')
-    cur.execute(sql, mutant_tuple)
-    unique_mutant_id = cur.fetchone()['mutant_id']
+    unique_mutant_id = mutant_to_id[(paper_id, mutant_name)]
 
     study_id = None
 
@@ -963,31 +1026,45 @@ def insert_mutant(cur, year, paper_id, mutant_obj, tag_info, root_classes):
         cur.execute(sql, high_level_descriptor)
         study_id = cur.fetchone()['study_id']
 
+    method_tuples = []
     for method in methods:
-        sql = prepare_sql_query(schema='resistome', table='mutant_methods',
-                                columns=RESISTOME_SCHEMA['mutant_methods'])
-        cur.execute(sql, (unique_mutant_id, method))
+        method_tuples.append((unique_mutant_id, method))
 
+    phenotype_tuples = []
     for phenotype in sensitive_phenotypes:
-        errors.extend(insert_mutant_phenotype(cur, unique_mutant_id, phenotype, 'S',
-                                              resist_level, resist_units, tag_info, root_classes))
+        ptuple, p_errors = insert_mutant_phenotype(cur, unique_mutant_id, phenotype, 'S',
+                                                   resist_level, resist_units, tag_info, root_classes)
+        errors.extend(p_errors)
+        phenotype_tuples.append(ptuple)
 
     for phenotype in resistant_phenotypes:
-        errors.extend(insert_mutant_phenotype(cur, unique_mutant_id, phenotype, 'R',
-                                              resist_level, resist_units, tag_info, root_classes))
+        ptuple, p_errors = insert_mutant_phenotype(cur, unique_mutant_id, phenotype, 'R',
+                                                   resist_level, resist_units, tag_info, root_classes)
+        errors.extend(p_errors)
+        phenotype_tuples.append(ptuple)
 
     affected_genes = []
+    collected_annotation_tuples = []
 
     for mutation in mutant_obj.mutations:
         affected_genes.extend(mutation.modified_genes)
-        errors.extend(insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation, species, converted_strain,
-                                           strain))
+        annotation_tuples, annotation_errors = insert_mutation_data(cur, year, paper_id, unique_mutant_id, mutation,
+                                                                    species, converted_strain, strain)
+        errors.extend(annotation_errors)
+        collected_annotation_tuples.extend(annotation_tuples)
 
+    sql = prepare_tuple_style_sql_query(schema='resistome', table='expressions',
+                                        columns=RESISTOME_SCHEMA['expressions'])
+    expression_tuples = []
     for expression in mutant_obj.expression:
-        errors.extend(insert_expression_data(cur, paper_id, unique_mutant_id, study_id, expression, species,
-                                             converted_strain))
+        e_tuple, e_errors = insert_expression_data(cur, paper_id, unique_mutant_id, study_id, expression, species,
+                                             converted_strain)
+        errors.extend(e_errors)
+        expression_tuples.append(e_tuple)
 
-    return errors
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=expression_tuples, page_size=4000)
+
+    return errors, collected_annotation_tuples, phenotype_tuples, method_tuples
 
 
 def build_gene_standardization_table(cur, papers, species_std, unified_std):
@@ -1217,6 +1294,16 @@ def main(cur, add_resistome_go_metabolite_tables=False):
 
     tags_information, ontology = database_utils.load_tolerance_ontology()
 
+    # hot start for known genes
+
+    cur.execute('SELECT strain.strain, ARRAY_AGG(accession) as accessions from genes '
+                'INNER JOIN strain on strain.strain_id = genes.strain_id '
+                'GROUP BY strain.strain')
+
+    # hot start-otherwise we spend a lot of time fetching gene locations
+    for record in cur.fetchall():
+        fetch_gene_position(cur, record['strain'], record['strain'], gene_names=record['accessions'])
+
     # other databases currently only includes Carol Gross' large phenotyping effort for the Keio collection
     # NOTE THIS IS WHERE YOU CONTROL THE INPUTS
     ### ###
@@ -1243,6 +1330,11 @@ def main(cur, add_resistome_go_metabolite_tables=False):
 
     doi_duplicate_tracker = set()
 
+    paper_tag_tuples = []
+
+    collected_phenotypes = []
+    collected_methods = []
+    collected_annotations = []
     for k, paper in enumerate(standardized_papers):
 
         print('(%04i/%04i) Working on %s [Tags=%s]' % (k, len(standardized_papers), paper.title,
@@ -1295,13 +1387,45 @@ def main(cur, add_resistome_go_metabolite_tables=False):
         cur.execute(sql, paper_tuple)
         inserted_id = cur.fetchone()['paper_id']
 
-        paper_tag_table(cur, inserted_id, tags)
+        for tag in tags:
+            paper_tag_tuples.append((inserted_id, tag.lower()))
+
+        mutant_to_id, errors = insert_all_mutant_tuples(cursor=cur, paper_id=inserted_id, mutant_objects=paper.mutants)
+        if len(errors) > 0:
+            error_dict[title].update(errors)
 
         for mutant in paper.mutants:
 
-            paper_errors = insert_mutant(cur, year, inserted_id, mutant, tags_information, ontology)
+            paper_errors, annotation_tuples, phenotype_tuples, method_tuples = insert_mutant_dependent_data(cur,
+                                                                                                            mutant_to_id, year,
+                                                                                                            inserted_id, mutant,
+                                                                                                            tags_information, ontology)
+            collected_methods.extend(method_tuples)
+            collected_phenotypes.extend(phenotype_tuples)
+            collected_annotations.extend(annotation_tuples)
             if len(paper_errors) > 0:
                 error_dict[title].update(paper_errors)
+
+    sql = prepare_tuple_style_sql_query(schema='resistome',
+                                        table='annotations',
+                                        columns=RESISTOME_SCHEMA['annotations'])
+
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=collected_annotations, page_size=50000)
+
+    sql = prepare_tuple_style_sql_query(schema='resistome', table='mutant_methods',
+                                        columns=RESISTOME_SCHEMA['mutant_methods'])
+
+    psycopg2.extras.execute_values(cur, sql=sql, argslist=collected_methods)
+
+    sql = prepare_tuple_style_sql_query(schema='resistome', table='phenotypes',
+                                        columns=RESISTOME_SCHEMA['phenotypes'])
+
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=collected_phenotypes)
+
+    sql = prepare_tuple_style_sql_query(schema='resistome', table='paper_tags',
+                                        columns=RESISTOME_SCHEMA['paper_tags'])
+
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=paper_tag_tuples)
 
     if len(error_dict.values()) > 0:
 
@@ -1330,6 +1454,15 @@ def main(cur, add_resistome_go_metabolite_tables=False):
           % (len(invalid_annotation_entries), count, (1.0 - len(invalid_annotation_entries)/count) * 100.0))
     print('Finished loading data into resistome SQL schema. These entries are marked as VALID = FALSE in the '
           'resistome.annotations table. All other entries appear to be valid.')
+
+    print('Adding inferred nucleotide changes from AA changes...')
+
+    tuples_to_insert = infer_residue_nucleotide_changes(cursor=cur)
+    sql = prepare_tuple_style_sql_query('annotations', 'resistome', columns=RESISTOME_SCHEMA['annotations'] +
+                                                                            ['valid', 'valid_reason'])
+    psycopg2.extras.execute_values(cur=cur, sql=sql, argslist=tuples_to_insert, page_size=10000)
+
+    print('Finished adding inferred AA => nucleotide changes.')
 
 
 if __name__ == '__main__':
