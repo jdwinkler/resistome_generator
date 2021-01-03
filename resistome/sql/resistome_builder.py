@@ -295,7 +295,7 @@ def error_check_mutation_entry(entry_data, mutation_types):
 
     if gene_name is None:
         passes_error_check = False
-    if ',' in gene_name or '/' in gene_name:
+    if ',' in gene_name or '/' in gene_name or ';' in gene_name:
         passes_error_check = False
     if 'Escherichia coli'.upper() not in species.upper():
         passes_error_check = False

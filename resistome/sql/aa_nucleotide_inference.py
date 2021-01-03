@@ -1,5 +1,6 @@
 from typing import List, Dict
 from collections import defaultdict
+import resistome.sql.sql_interface as sql_interface
 
 
 def hamming_distance(str1, str2):

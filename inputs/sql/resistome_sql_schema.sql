@@ -117,7 +117,10 @@ create table resistome.mutants (
 	                                 (rotation IS NULL or rotation >= 0) AND
 	                                 (initial_fitness IS NULL or initial_fitness >= 0) AND
 	                                 (final_fitness IS NULL or final_fitness >= 0) ),
-	CONSTRAINT chk_paper_mutant_name UNIQUE (paper_id, name)
+	CONSTRAINT chk_paper_mutant_name UNIQUE (paper_id, name),
+	-- make sure these match our internal nomenclature-want to enforce better standardization over time.
+	CONSTRAINT fk_vessel_type FOREIGN KEY ( vessel_type ) REFERENCES resistome.term_explanation (internal_name),
+	CONSTRAINT fk_oxygenation_type FOREIGN KEY ( oxygenation ) REFERENCES resistome.term_explanation (internal_name)
 );
 
 create index mutant_id_idx on resistome.mutants (mutant_id);
