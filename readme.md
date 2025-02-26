@@ -28,7 +28,7 @@ useful for your research.
 
 Here is the quick setup procedure:
 
-0. Setup a python >=3.8 (or equivalent) virtual environment. 
+0. Setup a python 3.8 to 3.11 (or equivalent) virtual environment. Tensorflow might not be available on newer Python versions. 
 1. Install the python requirements using `pip install -r requirements.txt`.
 2. Install and setup Postgres (if needed).
 2. Download the latest database dump on the public Resistome website 

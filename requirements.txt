@@ -1,5 +1,5 @@
 scikit-learn>=0.23.2
-tensorflow>=0.24
+# tensorflow>=0.24
 scipy>=1.5.4
 numpy>=1.19
 cobra>=0.20
