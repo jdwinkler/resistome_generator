@@ -15,7 +15,7 @@ def load_tu_groups(tu_filepath: str) -> Dict[str, List[str]]:
         raise AssertionError('Did not find %s' % tu_filepath)
 
     tu_to_genes = defaultdict(list)
-    with open(tu_filepath) as f:
+    with open(tu_filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -54,7 +54,7 @@ def load_operon_groups(operon_filepath: str, gene_starts: Dict[int, str], gene_e
         raise AssertionError('Did not find %s' % operon_filepath)
 
     operon_to_genes = dict()
-    with open(operon_filepath) as f:
+    with open(operon_filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -99,7 +99,7 @@ def load_gene_accessions(gene_filepath: str) -> Tuple[Dict[int, str], Dict[int, 
     starts = dict()
     ends = dict()
 
-    with open(gene_filepath) as f:
+    with open(gene_filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -133,7 +133,7 @@ def load_regulondb_external_ids(external_id_filepath: str, target_col: int = 2) 
         raise AssertionError('Did not find %s' % external_id_filepath)
 
     output_dict = dict()
-    with open(external_id_filepath) as f:
+    with open(external_id_filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -173,7 +173,7 @@ def load_generic_mapping(sigma_filepath, gene_position: int = 3) -> Dict[str, Li
         raise AssertionError('Did not find %s' % sigma_filepath)
 
     mapping = defaultdict(list)
-    with open(sigma_filepath) as f:
+    with open(sigma_filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '!' or line[0] == '#':
                 continue
@@ -251,7 +251,7 @@ def parse_regulondb_distribution(strain_id, accession_to_gene_id) -> List[Tuple[
     b_id = 2
 
     output_interactions = []
-    with open(regulatory_network) as f:
+    with open(regulatory_network, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -327,7 +327,7 @@ def generic_file_parser(filepath: str,
 
     col_to_pos = dict()
     pos_to_col = dict()
-    with open(filepath) as f:
+    with open(filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '!' or line[0] == '#':
                 if 'Columns:' in line:
@@ -344,7 +344,7 @@ def generic_file_parser(filepath: str,
                 break
 
     output_tuples = []
-    with open(filepath) as f:
+    with open(filepath, encoding='utf-8') as f:
         for line in f:
             if line[0] == '!' or line[0] == '#' or line[0] == '<':
                 continue
@@ -401,7 +401,7 @@ def handle_dna_binding_site_association(eck_to_bnumber: Dict[str, str]):
             gene_to_eck[z] = x
 
     site_to_regulator = defaultdict(list)
-    with open(reg_interactions) as f:
+    with open(reg_interactions, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -410,7 +410,7 @@ def handle_dna_binding_site_association(eck_to_bnumber: Dict[str, str]):
             regulator_maybe_id = tokens[1]
             site_to_regulator[site_id].append(regulator_maybe_id)
 
-    with open(tf_gene_interactions) as f:
+    with open(tf_gene_interactions, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -420,7 +420,7 @@ def handle_dna_binding_site_association(eck_to_bnumber: Dict[str, str]):
             site_to_regulator[site_id].append(regulator_maybe_id)
 
     conformation_to_tf = defaultdict(list)
-    with open(conformation) as f:
+    with open(conformation, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -610,7 +610,7 @@ def extract_mg1655_genome_features(strain_id: int):
     genes = os.path.join(REGULON_DB_DIR, 'gene.txt')
     gene_starts, gene_ends = load_gene_accessions(genes)
 
-    with open(genes) as f:
+    with open(genes, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
@@ -690,7 +690,7 @@ def extract_mg1655_genome_features(strain_id: int):
                                 exclude={'OBJECT_TYPE': lambda x: x == 'srna'})
 
     srna_to_seq_target = dict()
-    with open(srnas_file) as f:
+    with open(srnas_file, encoding='utf-8') as f:
         for line in f:
             if line[0] == '#':
                 continue
